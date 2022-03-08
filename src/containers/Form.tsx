@@ -35,9 +35,17 @@ function FormDemo() {
   };
 
   const validationSchema = Yup.object({
+    username: Yup.string().required("Required"),
+    email: Yup.string().email("Wrong Format").required("Required"),
+    password: Yup.string().required("Required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords do not match")
       .required("Required"),
+    drinks: Yup.array().min(1, "Required"),
+    position: Yup.string().required("Required").nullable(),
+    browser: Yup.string().required("Required").nullable(),
+    comments: Yup.string().required("Required"),
+    date: Yup.date().required("Required").nullable(),
   });
 
   return (
@@ -128,7 +136,7 @@ function FormDemo() {
                     { label: "Fullstack", value: "fullstack" },
                   ]}
                   required
-                  placeholder="請選擇職位"
+                  placeholder="Pick Position"
                 />
               </Grid.Col>
 
@@ -153,13 +161,13 @@ function FormDemo() {
                   control="date-picker"
                   name="date"
                   label="Date"
-                  placeholder="請填寫日期"
+                  placeholder="Pick Date"
                   required
                   allowFreeInput
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col md={12} lg={10}>
                 <FormikController
                   control="text-area"
                   name="comments"
