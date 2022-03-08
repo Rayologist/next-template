@@ -9,6 +9,7 @@ function FormDemo() {
     username: string;
     email: string;
     password: string;
+    confirmPassword: string;
     drinks: Array<string>;
     position: string;
     browser: string;
@@ -19,6 +20,7 @@ function FormDemo() {
   const initialValue: Values = {
     username: "",
     password: "",
+    confirmPassword: "",
     email: "",
     drinks: [],
     position: "",
@@ -33,14 +35,9 @@ function FormDemo() {
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required("必填"),
-    email: Yup.string().email("請確認格式").required("必填"),
-    password: Yup.string().required("必填"),
-    drinks: Yup.array().min(1, "必填"),
-    position: Yup.string().required("必填").nullable(),
-    browser: Yup.string().required("必填").nullable(),
-    comments: Yup.string().required("必填"),
-    date: Yup.date().required("必填").nullable(),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Passwords do not match")
+      .required("Required"),
   });
 
   return (
@@ -93,6 +90,15 @@ function FormDemo() {
                   control="password-input"
                   name="password"
                   label="Password"
+                  required
+                />
+              </Grid.Col>
+
+              <Grid.Col md={12} lg={5}>
+                <FormikController
+                  control="password-input"
+                  name="confirmPassword"
+                  label="Confirm Password"
                   required
                 />
               </Grid.Col>
