@@ -1,7 +1,10 @@
-import type { NextPage } from "next";
+import FormDemo from "@containers/Form";
 
-const Home: NextPage = () => {
-  return <></>;
-};
 
-export default Home;
+export default function HomePage() {
+  return (
+    <>
+      <FormDemo />
+    </>
+  );
+}
