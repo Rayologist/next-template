@@ -68,13 +68,13 @@ function FormDemo() {
         {(formik) => (
           <Form>
             <Grid justify="center" gutter="xl">
-              <Grid.Col md={12} lg={12}>
+              <Grid.Col xs={10} sm={10} md={10} lg={10}>
                 <Title order={1} align="center">
                   Sample Form
                 </Title>
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="text-input"
                   name="username"
@@ -83,7 +83,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="text-input"
                   type="email"
@@ -93,7 +93,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="password-input"
                   name="password"
@@ -102,7 +102,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="password-input"
                   name="confirmPassword"
@@ -111,7 +111,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="checkbox"
                   name="drinks"
@@ -125,7 +125,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="select"
                   name="position"
@@ -140,7 +140,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="radio-group"
                   name="browser"
@@ -156,7 +156,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={5}>
+              <Grid.Col xs={10} sm={10} md={5} lg={5}>
                 <FormikController
                   control="date-picker"
                   name="date"
@@ -167,7 +167,7 @@ function FormDemo() {
                 />
               </Grid.Col>
 
-              <Grid.Col md={12} lg={10}>
+              <Grid.Col xs={10} sm={10} md={10} lg={10}>
                 <FormikController
                   control="text-area"
                   name="comments"
@@ -177,8 +177,10 @@ function FormDemo() {
               </Grid.Col>
 
               <Grid.Col
-                md={12}
-                lg={12}
+                xs={10}
+                sm={10}
+                md={10}
+                lg={10}
                 sx={{ display: "flex", justifyContent: "center" }}
               >
                 <Button type="submit" mt={50} loading={formik.isSubmitting}>
