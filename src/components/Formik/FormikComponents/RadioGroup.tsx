@@ -26,9 +26,11 @@ function RadioGroup(
     >
       {options.map((option, index) => {
         return (
-          <Radio key={`${option.label}-${index}`} value={option.value}>
-            {option.label}
-          </Radio>
+          <Radio
+            key={`${option.label}-${index}`}
+            value={option.value}
+            label={option.label}
+          />
         );
       })}
     </MantineRadioGroup>
