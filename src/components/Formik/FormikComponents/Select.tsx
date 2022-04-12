@@ -1,11 +1,15 @@
 import React from "react";
 import { useCustomFormik } from "./Helper";
-import { Select as MantineSelect, SelectProps } from "@mantine/core";
+import {
+  Select as MantineSelect,
+  SelectProps,
+  SelectItem,
+} from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons";
-import { OptionsProps, ControlledProps } from "types";
+import { ControlledProps } from "types";
 
 function Select(
-  props: ControlledProps & OptionsProps & Omit<SelectProps, "data">
+  props: ControlledProps & { options: SelectItem[] } & Omit<SelectProps, "data">
 ) {
   const { label, options, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
