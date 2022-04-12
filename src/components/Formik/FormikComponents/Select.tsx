@@ -19,7 +19,7 @@ function Select(
       name={name}
       value={fieldValue}
       onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={formik.handleBlur}
+      onBlur={() => formik.setFieldTouched(name, true)}
       allowDeselect
       error={hasError}
       {...rest}

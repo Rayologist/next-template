@@ -18,7 +18,7 @@ function DatePicker(props: ControlledProps & DatePickerProps) {
       error={hasError}
       {...rest}
       onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={formik.handleBlur}
+      onBlur={() => formik.setFieldValue(name, true)}
     />
   );
 }

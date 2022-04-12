@@ -22,6 +22,7 @@ function RadioGroup(
       onChange={(value) => {
         formik.setFieldValue(name, value);
       }}
+      onBlur={() => formik.setFieldTouched(name, true)}
       {...rest}
     >
       {options.map((option, index) => {
