@@ -5,7 +5,7 @@ import {
   SelectProps,
   TextareaProps,
   TextInputProps,
-  GroupProps,
+  CheckboxGroupProps,
 } from "@mantine/core";
 import { DatePickerProps } from "@mantine/dates";
 
@@ -22,7 +22,7 @@ export type ControllerProps = ControlledProps &
     | ({ control: "password-input" } & PasswordInputProps)
     | ({ control: "select"; options: OptionType[] } & Omit<SelectProps, "data">)
     | ({ control: "checkbox"; options: OptionType[] } & CheckboxProps &
-        GroupProps)
+        Omit<CheckboxGroupProps, "children">)
     | ({ control: "radio-group"; options: OptionType[] } & Omit<
         RadioGroupProps,
         "children"
