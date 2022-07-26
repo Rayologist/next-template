@@ -2,22 +2,21 @@ import React from "react";
 import {
   Radio,
   RadioGroupProps,
-  RadioGroup as MantineRadioGroup,
+  
 } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
 import { ControlledProps } from "types";
 import { OptionsProps } from "types";
 
-function RadioGroup(
-  props: ControlledProps & OptionsProps & Omit<RadioGroupProps, "children">
-) {
+function RadioGroup(props: ControlledProps & OptionsProps & RadioGroupProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
+  const radioValue = (formik.values as { [key: string]: any })[name];
 
   return (
-    <MantineRadioGroup
+    <Radio.Group
       label={label}
-      name={name}
+      value={radioValue}
       error={hasError}
       onChange={(value) => {
         formik.setFieldValue(name, value);
@@ -34,7 +33,7 @@ function RadioGroup(
           />
         );
       })}
-    </MantineRadioGroup>
+    </Radio.Group>
   );
 }
 
