@@ -3,6 +3,7 @@ import { Form, Formik, FormikHelpers } from "formik";
 import FormikController from "@components/Formik/FormikController";
 import { Paper, Button, Grid, Title } from "@mantine/core";
 import * as Yup from "yup";
+import { useMediaQuery } from "@mantine/hooks";
 
 function FormDemo() {
   interface Values {
@@ -48,15 +49,17 @@ function FormDemo() {
     date: Yup.date().required("Required").nullable(),
   });
 
+  const matches = useMediaQuery("(max-width: 700px)");
+
   return (
     <Paper
       shadow="lg"
       ml="auto"
       mr="auto"
-      mt="2rem"
+      mt="1rem"
       sx={{
-        padding: "3rem 1rem ",
-        width: "50%",
+        padding: matches ? "1rem 1rem" : "3rem 1rem",
+        width: matches ? "80%" : "40%",
       }}
       withBorder
     >
@@ -183,7 +186,7 @@ function FormDemo() {
                 lg={10}
                 sx={{ display: "flex", justifyContent: "center" }}
               >
-                <Button type="submit" mt={50} loading={formik.isSubmitting}>
+                <Button type="submit" mt={25} loading={formik.isSubmitting}>
                   {formik.isSubmitting ? "Submitting" : "Submit"}
                 </Button>
               </Grid.Col>
