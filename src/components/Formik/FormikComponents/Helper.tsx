@@ -26,10 +26,12 @@ function useCustomFormik(
         alignItems: "center",
         columnGap: 5,
         position: "absolute",
-        fontSize: "15px"
+        fontSize: "15px",
       }}
     >
-      <IconAlertCircle width={18} /> {error}
+      <>
+        <IconAlertCircle width={18} /> {error}
+      </>
     </Box>
   ) : null;
 
