@@ -56,10 +56,10 @@ function FormDemo() {
       shadow="lg"
       ml="auto"
       mr="auto"
-      mt="1rem"
+      mt="0.5rem"
       sx={{
-        padding: matches ? "1rem 1rem" : "3rem 1rem",
-        width: matches ? "80%" : "40%",
+        padding: matches ? "1rem 1rem" : "2rem 1rem",
+        width: matches ? "80%" : "45%",
       }}
       withBorder
     >
