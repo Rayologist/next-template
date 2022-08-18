@@ -14,7 +14,7 @@ function TextInput(props: ControlledProps & TextInputProps) {
       <MantineTextInput
         label={label}
         name={name}
-        value={inputValue}
+        value={inputValue ?? null}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         error={hasError}
