@@ -4,6 +4,7 @@ import FormikController from "@components/Formik/FormikController";
 import { Paper, Button, Grid, Title } from "@mantine/core";
 import * as Yup from "yup";
 import { useMediaQuery } from "@mantine/hooks";
+import { ControllerProps } from "types";
 
 function FormDemo() {
   interface Values {
@@ -51,6 +52,78 @@ function FormDemo() {
 
   const matches = useMediaQuery("(max-width: 700px)");
 
+  const fields: ControllerProps[] = [
+    {
+      control: "text-input",
+      name: "username",
+      label: "Username",
+      required: true,
+    },
+    {
+      control: "text-input",
+      type: "email",
+      name: "email",
+      label: "Email",
+      required: true,
+    },
+    {
+      control: "password-input",
+      name: "password",
+      label: "Password",
+      required: true,
+    },
+    {
+      control: "password-input",
+      name: "confirmPassword",
+      label: "Confirm Password",
+      required: true,
+    },
+    {
+      control: "checkbox",
+      name: "drinks",
+      label: "Drinks",
+      options: [
+        { label: "Coffee", value: "coffee" },
+        { label: "Tea", value: "tea" },
+        { label: "Wine", value: "wine" },
+      ],
+      required: true,
+    },
+    {
+      control: "select",
+      name: "position",
+      label: "Position",
+      options: [
+        { label: "Backend", value: "backend" },
+        { label: "Frontend", value: "frontend" },
+        { label: "Fullstack", value: "fullstack" },
+      ],
+      required: true,
+      placeholder: "Pick Position",
+    },
+    {
+      control: "radio-group",
+      name: "browser",
+      label: "Browser",
+      options: [
+        { label: "Firefox", value: "firefox" },
+        { label: "Edge", value: "edge" },
+        { label: "Chrome", value: "chrome" },
+        { label: "Opera", value: "opera" },
+        { label: "Safari", value: "safari" },
+      ],
+      required: true,
+    },
+    {
+      control: "date-picker",
+      name: "date",
+      label: "Date",
+      placeholder: "Pick Date",
+      required: true,
+      allowFreeInput: true,
+    },
+  ];
+
   return (
     <Paper
       shadow="lg"
@@ -77,98 +150,19 @@ function FormDemo() {
                 </Title>
               </Grid.Col>
 
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="text-input"
-                  name="username"
-                  label="Username"
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="text-input"
-                  type="email"
-                  name="email"
-                  label="Email"
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="password-input"
-                  name="password"
-                  label="Password"
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="password-input"
-                  name="confirmPassword"
-                  label="Confirm Password"
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="checkbox"
-                  name="drinks"
-                  label="Drinks"
-                  options={[
-                    { label: "Coffee", value: "coffee" },
-                    { label: "Tea", value: "tea" },
-                    { label: "Wine", value: "wine" },
-                  ]}
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="select"
-                  name="position"
-                  label="Position"
-                  options={[
-                    { label: "Backend", value: "backend" },
-                    { label: "Frontend", value: "frontend" },
-                    { label: "Fullstack", value: "fullstack" },
-                  ]}
-                  required
-                  placeholder="Pick Position"
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="radio-group"
-                  name="browser"
-                  label="Browser"
-                  options={[
-                    { label: "Firefox", value: "firefox" },
-                    { label: "Edge", value: "edge" },
-                    { label: "Chrome", value: "chrome" },
-                    { label: "Opera", value: "opera" },
-                    { label: "Safari", value: "safari" },
-                  ]}
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col xs={10} sm={10} md={5} lg={5}>
-                <FormikController
-                  control="date-picker"
-                  name="date"
-                  label="Date"
-                  placeholder="Pick Date"
-                  required
-                  allowFreeInput
-                />
-              </Grid.Col>
+              {fields.map((field, index) => {
+                return (
+                  <Grid.Col
+                    xs={10}
+                    sm={10}
+                    md={5}
+                    lg={5}
+                    key={`${field.name}-${index}`}
+                  >
+                    <FormikController {...field} />
+                  </Grid.Col>
+                );
+              })}
 
               <Grid.Col xs={10} sm={10} md={10} lg={10}>
                 <FormikController
