@@ -9,7 +9,7 @@ function RadioGroup(
 ) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const radioValue = (formik.values as { [key: string]: any })[name];
+  const radioValue = formik.values[name] as RadioGroupProps["value"];
 
   return (
     <Radio.Group

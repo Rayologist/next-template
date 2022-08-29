@@ -13,7 +13,7 @@ function Select(
 ) {
   const { label, options, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const fieldValue = (formik.values as { [key: string]: any })[name];
+  const fieldValue = formik.values[name] as SelectProps["value"];
 
   return (
     <MantineSelect

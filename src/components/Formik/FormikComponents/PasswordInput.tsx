@@ -10,7 +10,8 @@ import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 function PasswordInput(props: ControlledProps & PasswordInputProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const passwordValue = (formik.values as { [key: string]: any })[name];
+  const passwordValue = formik.values[name] as PasswordInputProps["value"];
+
   return (
     <MantinePasswordInput
       name={name}

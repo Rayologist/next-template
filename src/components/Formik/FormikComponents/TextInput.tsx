@@ -7,14 +7,14 @@ import { ControlledProps } from "types";
 function TextInput(props: ControlledProps & TextInputProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const inputValue = (formik.values as { [key: string]: any })[name];
+  const inputValue = formik.values[name] as TextInputProps["value"];
 
   return (
     <>
       <MantineTextInput
         label={label}
         name={name}
-        value={inputValue ?? null}
+        value={inputValue ?? undefined}
         onChange={formik.handleChange}
         onBlur={formik.handleBlur}
         error={hasError}

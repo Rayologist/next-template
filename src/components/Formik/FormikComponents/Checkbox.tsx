@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Checkbox as MantineCheckbox,
   CheckboxProps,
@@ -15,15 +15,13 @@ function Checkbox(
 ) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const checkboxValue = (formik.values as { [key: string]: any })[name];
+  const checkboxValue = formik.values[name] as CheckboxGroupProps["value"];
 
   return (
     <MantineCheckbox.Group
       label={label}
       value={checkboxValue}
-      onChange={(value) => {
-        formik.setFieldValue(name, value);
-      }}
+      onChange={(value) => formik.setFieldValue(name, value)}
       onBlur={() => formik.setFieldTouched(name, true)}
       error={hasError}
       {...rest}

@@ -6,7 +6,7 @@ import { ControlledProps } from "types";
 function Textarea(props: ControlledProps & TextareaProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const textValue = (formik.values as { [key: string]: any })[name];
+  const textValue = formik.values[name] as TextareaProps["value"];
 
   return (
     <MantineTextarea

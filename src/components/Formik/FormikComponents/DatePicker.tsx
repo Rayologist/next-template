@@ -9,7 +9,7 @@ import { ControlledProps } from "types";
 function DatePicker(props: ControlledProps & DatePickerProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const dateValue = (formik.values as { [key: string]: any })[name];
+  const dateValue = formik.values[name] as DatePickerProps["value"];
 
   return (
     <MantineDatePicker
