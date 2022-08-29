@@ -1,38 +1,23 @@
 import React from "react";
-import {
-  useFormikContext,
-  FormikTouched,
-  FormikErrors,
-  FormikContextType,
-} from "formik";
-import { Box } from "@mantine/core";
+import { useFormikContext, FormikContextType } from "formik";
+import { Group, Text } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons";
 
-interface FixTouchedAndErrors {
+interface FormValues {
   [key: string]: any;
 }
 
 function useCustomFormik(
   name: string
-): [FormikContextType<unknown>, JSX.Element | null] {
-  const formik = useFormikContext();
-  const touched: FormikTouched<FixTouchedAndErrors> = formik.touched;
-  const errors: FormikErrors<FixTouchedAndErrors> = formik.errors;
+): [FormikContextType<FormValues>, JSX.Element | null] {
+  const formik = useFormikContext<FormValues>();
+  const { touched, errors } = formik;
   const error = touched[name] && errors[name];
   const hasError = error ? (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        columnGap: 5,
-        position: "absolute",
-        fontSize: "15px",
-      }}
-    >
-      <>
-        <IconAlertCircle width={18} /> {error}
-      </>
-    </Box>
+    <Group spacing={5} sx={{ position: "absolute" }}>
+      <IconAlertCircle width={18} />
+      <Text weight={500}>{error.toString()}</Text>
+    </Group>
   ) : null;
 
   return [formik, hasError];
