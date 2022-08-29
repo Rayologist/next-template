@@ -10,17 +10,15 @@ function TextInput(props: ControlledProps & TextInputProps) {
   const inputValue = formik.values[name] as TextInputProps["value"];
 
   return (
-    <>
-      <MantineTextInput
-        label={label}
-        name={name}
-        value={inputValue ?? undefined}
-        onChange={formik.handleChange}
-        onBlur={formik.handleBlur}
-        error={hasError}
-        {...rest}
-      />
-    </>
+    <MantineTextInput
+      label={label}
+      name={name}
+      value={inputValue ?? undefined}
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      error={hasError}
+      {...rest}
+    />
   );
 }
 
