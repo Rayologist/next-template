@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, Formik, FormikHelpers } from "formik";
 import FormikController from "@components/Formik/FormikController";
 import { Paper, Button, Grid, Title } from "@mantine/core";
@@ -10,6 +9,7 @@ function FormDemo() {
   interface Values {
     username: string;
     email: string;
+    age: number | null;
     password: string;
     confirmPassword: string;
     drinks: Array<string>;
@@ -20,6 +20,7 @@ function FormDemo() {
   }
 
   const initialValue: Values = {
+    age: null,
     username: "",
     password: "",
     confirmPassword: "",
@@ -48,6 +49,7 @@ function FormDemo() {
     browser: Yup.string().required("Required").nullable(),
     comments: Yup.string().required("Required"),
     date: Yup.date().required("Required").nullable(),
+    age: Yup.number().required("Required").nullable(),
   });
 
   const matches = useMediaQuery("(max-width: 700px)");
@@ -121,6 +123,12 @@ function FormDemo() {
       placeholder: "Pick Date",
       required: true,
       allowFreeInput: true,
+    },
+    {
+      control: "number-input",
+      name: "age",
+      label: "Age",
+      min: 1,
     },
   ];
 

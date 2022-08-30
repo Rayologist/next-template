@@ -6,6 +6,7 @@ import Checkbox from "./FormikComponents/Checkbox";
 import RadioGroup from "./FormikComponents/RadioGroup";
 import Textarea from "./FormikComponents/Textarea";
 import DatePicker from "./FormikComponents/DatePicker";
+import NumberInput from "./FormikComponents/NumberInput";
 import { ControllerProps } from "types";
 
 function FormikController(props: ControllerProps) {
@@ -16,6 +17,8 @@ function FormikController(props: ControllerProps) {
       return <TextInput {...props} />;
     case "password-input":
       return <PasswordInput {...props} />;
+    case "number-input":
+      return <NumberInput {...props} />;
     case "select":
       return <Select {...props} />;
     case "checkbox":

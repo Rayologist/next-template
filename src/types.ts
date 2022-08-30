@@ -6,6 +6,7 @@ import {
   TextareaProps,
   TextInputProps,
   CheckboxGroupProps,
+  NumberInputProps,
 } from "@mantine/core";
 import { DatePickerProps } from "@mantine/dates";
 
@@ -29,6 +30,7 @@ export type ControllerProps = ControlledProps &
       >)
     | ({ control: "text-area" } & TextareaProps)
     | ({ control: "date-picker" } & DatePickerProps)
+    | ({ control: "number-input" } & NumberInputProps)
   );
 
 export interface OptionsProps {
