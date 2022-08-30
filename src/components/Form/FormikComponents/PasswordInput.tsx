@@ -1,12 +1,9 @@
-import {
-  PasswordInput as MantinePasswordInput,
-  PasswordInputProps,
-} from "@mantine/core";
+import { PasswordInput as MantinePasswordInput } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
-import { ControlledProps } from "types";
+import { PasswordInputProps } from "types";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons";
 
-function PasswordInput(props: ControlledProps & PasswordInputProps) {
+function PasswordInput(props: PasswordInputProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const passwordValue = formik.values[name] as PasswordInputProps["value"];

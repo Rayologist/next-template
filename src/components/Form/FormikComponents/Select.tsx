@@ -1,15 +1,9 @@
 import { useCustomFormik } from "./Helper";
-import {
-  Select as MantineSelect,
-  SelectProps,
-  SelectItem,
-} from "@mantine/core";
+import { Select as MantineSelect } from "@mantine/core";
 import { IconChevronDown } from "@tabler/icons";
-import { ControlledProps } from "types";
+import { SelectProps } from "types";
 
-function Select(
-  props: ControlledProps & { options: SelectItem[] } & Omit<SelectProps, "data">
-) {
+function Select(props: SelectProps) {
   const { label, options, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const fieldValue = formik.values[name] as SelectProps["value"];

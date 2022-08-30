@@ -1,13 +1,8 @@
-import {
-  MultiSelect as MantineMultiSelect,
-  MultiSelectProps,
-} from "@mantine/core";
-import { OptionsProps, ControlledProps } from "types";
+import { MultiSelect as MantineMultiSelect } from "@mantine/core";
+import { MultiSelectProps } from "types";
 import { useCustomFormik } from "./Helper";
 
-function MultiSelect(
-  props: ControlledProps & Omit<MultiSelectProps, "data"> & OptionsProps
-) {
+function MultiSelect(props: MultiSelectProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const multiSelectValue = formik.values[name] as MultiSelectProps["value"];
@@ -19,9 +14,9 @@ function MultiSelect(
       value={multiSelectValue}
       data={options}
       onChange={(value) => {
-        formik.setFieldValue(name, value)
+        formik.setFieldValue(name, value);
       }}
-      onBlur={()=>formik.setFieldTouched(name, true)}
+      onBlur={() => formik.setFieldTouched(name, true)}
       error={hasError}
       getCreateLabel={(query) => `+ ${query}`}
       onCreate={(query) => {

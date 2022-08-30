@@ -1,11 +1,8 @@
-import {
-  NumberInput as MantineNumberInput,
-  NumberInputProps,
-} from "@mantine/core";
+import { NumberInput as MantineNumberInput } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
-import { ControlledProps } from "types";
+import { NumberInputProps } from "types";
 
-function NumberInput(props: ControlledProps & NumberInputProps) {
+function NumberInput(props: NumberInputProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const inputValue = formik.values[name] as NumberInputProps["value"];

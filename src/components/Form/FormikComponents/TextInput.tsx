@@ -1,9 +1,8 @@
-import type { TextInputProps } from "@mantine/core";
 import { TextInput as MantineTextInput } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
-import { ControlledProps } from "types";
+import { TextInputProps } from "types";
 
-function TextInput(props: ControlledProps & TextInputProps) {
+function TextInput(props: TextInputProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const inputValue = formik.values[name] as TextInputProps["value"];

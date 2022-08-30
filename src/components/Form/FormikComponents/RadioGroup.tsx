@@ -1,11 +1,8 @@
-import { Radio, RadioGroupProps } from "@mantine/core";
+import { Radio } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
-import { ControlledProps } from "types";
-import { OptionsProps } from "types";
+import { RadioGroupProps } from "types";
 
-function RadioGroup(
-  props: ControlledProps & OptionsProps & Omit<RadioGroupProps, "children">
-) {
+function RadioGroup(props: RadioGroupProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
   const radioValue = formik.values[name] as RadioGroupProps["value"];
