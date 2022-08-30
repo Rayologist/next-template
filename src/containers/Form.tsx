@@ -1,5 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
-import FormikController from "@components/Formik/FormikController";
+import { FormikController } from "@components/Form";
 import { Paper, Button, Grid, Title } from "@mantine/core";
 import * as Yup from "yup";
 import { useMediaQuery } from "@mantine/hooks";

@@ -7,8 +7,8 @@ import RadioGroup from "./FormikComponents/RadioGroup";
 import Textarea from "./FormikComponents/Textarea";
 import DatePicker from "./FormikComponents/DatePicker";
 import NumberInput from "./FormikComponents/NumberInput";
-import { ControllerProps } from "types";
 import MultiSelect from "./FormikComponents/MultiSelect";
+import { ControllerProps } from "types";
 
 function FormikController(props: ControllerProps) {
   const { control } = props;
