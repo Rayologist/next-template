@@ -84,7 +84,7 @@ function FormDemo() {
       required: true,
     },
     {
-      control: "checkbox",
+      control: "checkbox-group",
       name: "drinks",
       label: "Drinks",
       options: [

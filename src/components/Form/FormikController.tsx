@@ -2,7 +2,7 @@ import React from "react";
 import TextInput from "./FormikComponents/TextInput";
 import PasswordInput from "./FormikComponents/PasswordInput";
 import Select from "./FormikComponents/Select";
-import Checkbox from "./FormikComponents/Checkbox";
+import CheckboxGroup from "./FormikComponents/CheckboxGroup";
 import RadioGroup from "./FormikComponents/RadioGroup";
 import Textarea from "./FormikComponents/Textarea";
 import DatePicker from "./FormikComponents/DatePicker";
@@ -22,8 +22,8 @@ function FormikController(props: ControllerProps) {
       return <NumberInput {...props} />;
     case "select":
       return <Select {...props} />;
-    case "checkbox":
-      return <Checkbox {...props} />;
+    case "checkbox-group":
+      return <CheckboxGroup {...props} />;
     case "radio-group":
       return <RadioGroup {...props} />;
     case "text-area":
