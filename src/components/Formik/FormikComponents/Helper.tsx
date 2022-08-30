@@ -1,4 +1,3 @@
-import React from "react";
 import { useFormikContext, FormikContextType } from "formik";
 import { Group, Text } from "@mantine/core";
 import { IconAlertCircle } from "@tabler/icons";

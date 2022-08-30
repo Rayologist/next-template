@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Checkbox as MantineCheckbox,
   CheckboxProps,

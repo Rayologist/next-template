@@ -1,4 +1,3 @@
-import React from "react";
 import { Textarea as MantineTextarea, TextareaProps } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
 import { ControlledProps } from "types";

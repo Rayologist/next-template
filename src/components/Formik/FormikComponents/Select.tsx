@@ -1,4 +1,3 @@
-import React from "react";
 import { useCustomFormik } from "./Helper";
 import {
   Select as MantineSelect,

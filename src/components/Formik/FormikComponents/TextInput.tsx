@@ -1,4 +1,3 @@
-import React from "react";
 import type { TextInputProps } from "@mantine/core";
 import { TextInput as MantineTextInput } from "@mantine/core";
 import { useCustomFormik } from "./Helper";
