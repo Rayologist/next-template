@@ -7,6 +7,7 @@ import {
   CheckboxGroupProps as MantineCheckboxGroupProps,
   NumberInputProps as MantineNumberInputProps,
   MultiSelectProps as MantineMultiSelectProps,
+  FileInputProps as MantineFileInputProps,
 } from "@mantine/core";
 import { DatePickerProps as MantineDatePickerProps } from "@mantine/dates";
 
@@ -26,6 +27,9 @@ export type PasswordInputProps = Controlled<MantinePasswordInputProps>;
 export type TextareaProps = Controlled<MantineTextareaProps>;
 export type NumberInputProps = Controlled<MantineNumberInputProps>;
 export type DatePickerProps = Controlled<MantineDatePickerProps>;
+export type FileInputProps<T extends boolean> = Controlled<
+  MantineFileInputProps<T>
+>;
 export type SelectProps = Controlled<
   Omit<MantineSelectProps, "data"> & {
     options: MantineSelectProps["data"];
@@ -52,4 +56,5 @@ export type ControllerProps =
   | ({ control: "text-area" } & TextareaProps)
   | ({ control: "date-picker" } & DatePickerProps)
   | ({ control: "number-input" } & NumberInputProps)
-  | ({ control: "multi-select" } & MultiSelectProps);
+  | ({ control: "multi-select" } & MultiSelectProps)
+  | ({ control: "file-input" } & FileInputProps<boolean>);

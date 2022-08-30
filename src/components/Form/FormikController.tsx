@@ -8,6 +8,7 @@ import Textarea from "./FormikComponents/Textarea";
 import DatePicker from "./FormikComponents/DatePicker";
 import NumberInput from "./FormikComponents/NumberInput";
 import MultiSelect from "./FormikComponents/MultiSelect";
+import FileInput from "./FormikComponents/FileInput";
 import { ControllerProps } from "types";
 
 function FormikController(props: ControllerProps) {
@@ -32,6 +33,8 @@ function FormikController(props: ControllerProps) {
       return <DatePicker {...props} />;
     case "multi-select":
       return <MultiSelect {...props} />;
+    case "file-input":
+      return <FileInput {...props} />;
     default:
       return null;
   }

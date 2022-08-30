@@ -18,6 +18,7 @@ function FormDemo() {
     comments: string;
     date: Date | null;
     programmingLanguage: Array<string>;
+    resume: File[];
   }
 
   const initialValue: Values = {
@@ -32,6 +33,7 @@ function FormDemo() {
     comments: "",
     date: null,
     programmingLanguage: [],
+    resume: [],
   };
 
   const onSubmit = (values: Values, actions: FormikHelpers<Values>) => {
@@ -52,7 +54,7 @@ function FormDemo() {
     browser: string().required("Required").nullable(),
     comments: string().required("Required"),
     date: date().required("Required").nullable(),
-    programmingLanguage: array().min(1, "required"),
+    resume: array().min(1, "Required"),
   });
 
   const matches = useMediaQuery("(max-width: 700px)");
@@ -163,7 +165,15 @@ function FormDemo() {
       clearable: true,
       searchable: true,
       creatable: true,
-      required: true,
+    {
+      control: "file-input",
+      name: "resume",
+      label: "Resume",
+      multiple: true, 
+      clearable: true,
+      withAsterisk: true,
+    },
+    },
     },
   ];
 
