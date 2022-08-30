@@ -1,7 +1,7 @@
 import { Form, Formik, FormikHelpers } from "formik";
 import { FormikController } from "@components/Form";
 import { Paper, Button, Grid, Title } from "@mantine/core";
-import * as Yup from "yup";
+import { object, string, number, array, date, ref } from "yup";
 import { useMediaQuery } from "@mantine/hooks";
 import { ControllerProps } from "types";
 
@@ -39,20 +39,20 @@ function FormDemo() {
     setTimeout(() => actions.setSubmitting(false), 2000);
   };
 
-  const validationSchema = Yup.object({
-    username: Yup.string().required("Required"),
-    email: Yup.string().email("Wrong Format").required("Required"),
-    age: Yup.number().required("Required").nullable(),
-    password: Yup.string().required("Required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords do not match")
+  const validationSchema = object({
+    username: string().required("Required"),
+    email: string().email("Wrong Format").required("Required"),
+    age: number().required("Required").nullable(),
+    password: string().required("Required"),
+    confirmPassword: string()
+      .oneOf([ref("password"), null], "Passwords do not match")
       .required("Required"),
-    drinks: Yup.array().min(1, "Required"),
-    position: Yup.string().required("Required").nullable(),
-    browser: Yup.string().required("Required").nullable(),
-    comments: Yup.string().required("Required"),
-    date: Yup.date().required("Required").nullable(),
-    programmingLanguage: Yup.array().min(1, "required"),
+    drinks: array().min(1, "Required"),
+    position: string().required("Required").nullable(),
+    browser: string().required("Required").nullable(),
+    comments: string().required("Required"),
+    date: date().required("Required").nullable(),
+    programmingLanguage: array().min(1, "required"),
   });
 
   const matches = useMediaQuery("(max-width: 700px)");
