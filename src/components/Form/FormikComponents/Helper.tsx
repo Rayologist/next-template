@@ -15,7 +15,7 @@ function useCustomFormik(
   const hasError = error ? (
     <Group spacing={5} sx={{ position: "absolute" }}>
       <IconAlertCircle width={18} />
-      <Text weight={500}>{error.toString()}</Text>
+      <Text weight={500} size="sm">{error.toString()}</Text>
     </Group>
   ) : null;
 
