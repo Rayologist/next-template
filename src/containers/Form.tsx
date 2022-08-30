@@ -17,12 +17,13 @@ function FormDemo() {
     browser: string;
     comments: string;
     date: Date | null;
+    programmingLanguage: Array<string>;
   }
 
   const initialValue: Values = {
-    age: null,
     username: "",
     password: "",
+    age: null,
     confirmPassword: "",
     email: "",
     drinks: [],
@@ -30,6 +31,7 @@ function FormDemo() {
     browser: "",
     comments: "",
     date: null,
+    programmingLanguage: [],
   };
 
   const onSubmit = (values: Values, actions: FormikHelpers<Values>) => {
@@ -40,6 +42,7 @@ function FormDemo() {
   const validationSchema = Yup.object({
     username: Yup.string().required("Required"),
     email: Yup.string().email("Wrong Format").required("Required"),
+    age: Yup.number().required("Required").nullable(),
     password: Yup.string().required("Required"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Passwords do not match")
@@ -49,7 +52,7 @@ function FormDemo() {
     browser: Yup.string().required("Required").nullable(),
     comments: Yup.string().required("Required"),
     date: Yup.date().required("Required").nullable(),
-    age: Yup.number().required("Required").nullable(),
+    programmingLanguage: Yup.array().min(1, "required"),
   });
 
   const matches = useMediaQuery("(max-width: 700px)");
@@ -128,7 +131,39 @@ function FormDemo() {
       control: "number-input",
       name: "age",
       label: "Age",
+      required: true,
       min: 1,
+    },
+    {
+      control: "multi-select",
+      name: "programmingLanguage",
+      label: "Programming Language",
+      options: [
+        {
+          label: "Javascript",
+          value: "javascript",
+        },
+        {
+          label: "Typescript",
+          value: "typescript",
+        },
+        {
+          label: "Go",
+          value: "go",
+        },
+        {
+          label: "Python",
+          value: "python",
+        },
+        {
+          label: "Rust",
+          value: "rust",
+        },
+      ],
+      clearable: true,
+      searchable: true,
+      creatable: true,
+      required: true,
     },
   ];
 

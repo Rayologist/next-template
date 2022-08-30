@@ -8,6 +8,7 @@ import Textarea from "./FormikComponents/Textarea";
 import DatePicker from "./FormikComponents/DatePicker";
 import NumberInput from "./FormikComponents/NumberInput";
 import { ControllerProps } from "types";
+import MultiSelect from "./FormikComponents/MultiSelect";
 
 function FormikController(props: ControllerProps) {
   const { control } = props;
@@ -29,6 +30,8 @@ function FormikController(props: ControllerProps) {
       return <Textarea {...props} />;
     case "date-picker":
       return <DatePicker {...props} />;
+    case "multi-select":
+      return <MultiSelect {...props} />;
     default:
       return null;
   }
