@@ -1,6 +1,6 @@
 import { Form, Formik, FormikHelpers } from "formik";
 import { FormikController } from "@components/Form";
-import { Paper, Button, Grid, Title } from "@mantine/core";
+import { Paper, Button, Grid, Title, ColProps } from "@mantine/core";
 import { object, string, number, array, date, ref } from "yup";
 import { useMediaQuery } from "@mantine/hooks";
 import { ControllerProps } from "types";
@@ -54,36 +54,35 @@ function FormDemo() {
     browser: string().required("Required").nullable(),
     comments: string().required("Required"),
     date: date().required("Required").nullable(),
+    programmingLanguage: array().min(1, "Required"),
     resume: array().min(1, "Required"),
   });
 
-  const matches = useMediaQuery("(max-width: 700px)");
-
-  const fields: ControllerProps[] = [
+  const fields: (ControllerProps & { col?: ColProps })[] = [
     {
       control: "text-input",
       name: "username",
       label: "Username",
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "text-input",
       type: "email",
       name: "email",
       label: "Email",
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "password-input",
       name: "password",
       label: "Password",
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "password-input",
       name: "confirmPassword",
       label: "Confirm Password",
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "checkbox-group",
@@ -94,7 +93,7 @@ function FormDemo() {
         { label: "Tea", value: "tea" },
         { label: "Wine", value: "wine" },
       ],
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "select",
@@ -105,7 +104,7 @@ function FormDemo() {
         { label: "Frontend", value: "frontend" },
         { label: "Fullstack", value: "fullstack" },
       ],
-      required: true,
+      withAsterisk: true,
       placeholder: "Pick Position",
     },
     {
@@ -119,21 +118,21 @@ function FormDemo() {
         { label: "Opera", value: "opera" },
         { label: "Safari", value: "safari" },
       ],
-      required: true,
+      withAsterisk: true,
     },
     {
       control: "date-picker",
       name: "date",
       label: "Date",
       placeholder: "Pick Date",
-      required: true,
+      withAsterisk: true,
       allowFreeInput: true,
     },
     {
       control: "number-input",
       name: "age",
       label: "Age",
-      required: true,
+      withAsterisk: true,
       min: 1,
     },
     {
@@ -165,6 +164,8 @@ function FormDemo() {
       clearable: true,
       searchable: true,
       creatable: true,
+      withAsterisk: true,
+    },
     {
       control: "file-input",
       name: "resume",
@@ -172,76 +173,69 @@ function FormDemo() {
       multiple: true, 
       clearable: true,
       withAsterisk: true,
+      col: {
+        md: 10,
+        lg: 10,
+      },
     },
-    },
+    {
+      control: "text-area",
+      name: "comments",
+      label: "Comments",
+      withAsterisk: true,
+      col: {
+        md: 10,
+        lg: 10,
+      },
     },
   ];
 
   return (
-    <Paper
-      shadow="lg"
-      ml="auto"
-      mr="auto"
-      mt="0.5rem"
-      sx={{
-        padding: matches ? "1rem 1rem" : "2rem 1rem",
-        width: matches ? "80%" : "45%",
-      }}
-      withBorder
+    <Formik
+      initialValues={initialValue}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
     >
-      <Formik
-        initialValues={initialValue}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        {(formik) => (
-          <Form>
-            <Grid justify="center" gutter="xl">
-              <Grid.Col xs={10} sm={10} md={10} lg={10}>
-                <Title order={1} align="center">
-                  Sample Form
-                </Title>
-              </Grid.Col>
+      {(formik) => (
+        <Form>
+          <Grid justify="center" gutter="xl">
+            <Grid.Col xs={10} sm={10} md={10} lg={10}>
+              <Title order={1} align="center">
+                Sample Form
+              </Title>
+            </Grid.Col>
 
-              {fields.map((field, index) => {
-                return (
-                  <Grid.Col
-                    xs={10}
-                    sm={10}
-                    md={5}
-                    lg={5}
-                    key={`${field.name}-${index}`}
-                  >
-                    <FormikController {...field} />
-                  </Grid.Col>
-                );
-              })}
+            {fields.map((field, index) => {
+              const { col } = field;
+              return (
+                <Grid.Col
+                  xs={col?.xs ?? 10}
+                  sm={col?.sm ?? 10}
+                  md={col?.md ?? 5}
+                  lg={col?.lg ?? 5}
+                  key={`${field.name}-${index}`}
+                  {...col}
+                >
+                  <FormikController {...field} />
+                </Grid.Col>
+              );
+            })}
 
-              <Grid.Col xs={10} sm={10} md={10} lg={10}>
-                <FormikController
-                  control="text-area"
-                  name="comments"
-                  label="Comments"
-                  required
-                />
-              </Grid.Col>
-
-              <Grid.Col
-                xs={10}
-                sm={10}
-                md={10}
-                lg={10}
-                sx={{ display: "flex", justifyContent: "center" }}
-              >
-                <Button type="submit" mt={25} loading={formik.isSubmitting}>
-                  {formik.isSubmitting ? "Submitting" : "Submit"}
-                </Button>
-              </Grid.Col>
-            </Grid>
-          </Form>
-        )}
-      </Formik>
-    </Paper>
+            <Grid.Col
+              xs={10}
+              sm={10}
+              md={10}
+              lg={10}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              <Button type="submit" mt={25} loading={formik.isSubmitting}>
+                {formik.isSubmitting ? "Submitting" : "Submit"}
+              </Button>
+            </Grid.Col>
+          </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 }
 
