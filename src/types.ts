@@ -8,6 +8,7 @@ import {
   NumberInputProps as MantineNumberInputProps,
   MultiSelectProps as MantineMultiSelectProps,
   FileInputProps as MantineFileInputProps,
+  ColProps,
 } from "@mantine/core";
 import { DatePickerProps as MantineDatePickerProps } from "@mantine/dates";
 
@@ -58,3 +59,7 @@ export type ControllerProps =
   | ({ control: "number-input" } & NumberInputProps)
   | ({ control: "multi-select" } & MultiSelectProps)
   | ({ control: "file-input" } & FileInputProps<boolean>);
+
+export type ControllerPropsWithCol = {
+  controllers: (ControllerProps & { col?: ColProps })[];
+};
