@@ -1,8 +1,7 @@
 import { Form, Formik, FormikHelpers } from "formik";
 import { FormikController } from "@components/Form";
-import { Paper, Button, Grid, Title, ColProps } from "@mantine/core";
+import { Button, Grid, ColProps } from "@mantine/core";
 import { object, string, number, array, date, ref } from "yup";
-import { useMediaQuery } from "@mantine/hooks";
 import { ControllerProps } from "types";
 
 function FormDemo() {
@@ -170,12 +169,12 @@ function FormDemo() {
       control: "file-input",
       name: "resume",
       label: "Resume",
-      multiple: true, 
+      multiple: true,
       clearable: true,
       withAsterisk: true,
       col: {
-        md: 10,
-        lg: 10,
+        md: 12,
+        lg: 12,
       },
     },
     {
@@ -184,8 +183,8 @@ function FormDemo() {
       label: "Comments",
       withAsterisk: true,
       col: {
-        md: 10,
-        lg: 10,
+        md: 12,
+        lg: 12,
       },
     },
   ];
@@ -199,20 +198,14 @@ function FormDemo() {
       {(formik) => (
         <Form>
           <Grid justify="center" gutter="xl">
-            <Grid.Col xs={10} sm={10} md={10} lg={10}>
-              <Title order={1} align="center">
-                Sample Form
-              </Title>
-            </Grid.Col>
-
             {fields.map((field, index) => {
               const { col } = field;
               return (
                 <Grid.Col
-                  xs={col?.xs ?? 10}
-                  sm={col?.sm ?? 10}
-                  md={col?.md ?? 5}
-                  lg={col?.lg ?? 5}
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={6}
                   key={`${field.name}-${index}`}
                   {...col}
                 >
@@ -220,15 +213,8 @@ function FormDemo() {
                 </Grid.Col>
               );
             })}
-
-            <Grid.Col
-              xs={10}
-              sm={10}
-              md={10}
-              lg={10}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              <Button type="submit" mt={25} loading={formik.isSubmitting}>
+            <Grid.Col xs={3.5} sm={2.5} md={2.5} lg={2.5} xl={2.5} mt={10}>
+              <Button type="submit" loading={formik.isSubmitting} fullWidth>
                 {formik.isSubmitting ? "Submitting" : "Submit"}
               </Button>
             </Grid.Col>

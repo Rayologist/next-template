@@ -1,29 +1,19 @@
 import FormDemo from "@containers/Form";
-import { Paper, Group } from "@mantine/core";
-import { useMediaQuery } from "@mantine/hooks";
+import { Paper, Group, Title, Container } from "@mantine/core";
 import ColorSchemeToggle from "@components/ColorSchemeToggle";
 
 export default function HomePage() {
-  const matches = useMediaQuery("(max-width: 700px)");
   return (
-    <>
+    <Container size={700} my={20}>
       <Group position="right" mt={5}>
         <ColorSchemeToggle />
       </Group>
-      <Paper
-        shadow="lg"
-        ml="auto"
-        mr="auto"
-        mt="0.5rem"
-        radius="md"
-        sx={{
-          padding: matches ? "1rem 1rem" : "2rem 1rem",
-          width: matches ? "80%" : "45%",
-        }}
-        withBorder
-      >
+      <Title order={1} align="center">
+        Sample Form
+      </Title>
+      <Paper shadow="md" mt={20} p={45} radius="md" withBorder>
         <FormDemo />
       </Paper>
-    </>
+    </Container>
   );
 }
