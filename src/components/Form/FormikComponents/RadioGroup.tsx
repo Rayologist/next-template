@@ -18,7 +18,9 @@ function RadioGroup(props: RadioGroupProps) {
       onBlur={() => formik.setFieldTouched(name, true)}
       {...rest}
     >
-      {options.map((option, index) => <Radio key={`${option.label}-${index}`} value={option.value} label={option.label} />)}
+      {options.map((option, index) => (
+        <Radio key={`${option.label}-${index}`} value={option.value} label={option.label} />
+      ))}
     </Radio.Group>
   );
 }
