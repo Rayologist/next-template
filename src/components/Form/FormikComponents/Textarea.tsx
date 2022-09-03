@@ -1,11 +1,11 @@
-import { Textarea as MantineTextarea } from "@mantine/core";
-import { useCustomFormik } from "./Helper";
-import { TextareaProps } from "types";
+import { Textarea as MantineTextarea } from '@mantine/core';
+import { TextareaProps } from 'types';
+import { useCustomFormik } from './Helper';
 
 function Textarea(props: TextareaProps) {
   const { label, name, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const textValue = formik.values[name] as TextareaProps["value"];
+  const textValue = formik.values[name] as TextareaProps['value'];
 
   return (
     <MantineTextarea

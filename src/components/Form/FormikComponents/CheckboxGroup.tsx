@@ -1,11 +1,11 @@
-import { Checkbox as MantineCheckbox } from "@mantine/core";
-import { CheckboxGroupProps } from "types";
-import { useCustomFormik } from "./Helper";
+import { Checkbox as MantineCheckbox } from '@mantine/core';
+import { CheckboxGroupProps } from 'types';
+import { useCustomFormik } from './Helper';
 
 function CheckboxGroup(props: CheckboxGroupProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const checkboxValue = formik.values[name] as CheckboxGroupProps["value"];
+  const checkboxValue = formik.values[name] as CheckboxGroupProps['value'];
 
   return (
     <MantineCheckbox.Group
@@ -16,15 +16,13 @@ function CheckboxGroup(props: CheckboxGroupProps) {
       error={hasError}
       {...rest}
     >
-      {options.map((option, index) => {
-        return (
-          <MantineCheckbox
-            key={`${option.label}-${index}`}
-            label={option.label}
-            value={option.value}
-          />
-        );
-      })}
+      {options.map((option, index) => (
+        <MantineCheckbox
+          key={`${option.label}-${index}`}
+          label={option.label}
+          value={option.value}
+        />
+      ))}
     </MantineCheckbox.Group>
   );
 }

@@ -1,6 +1,6 @@
-import FormDemo from "@containers/Form";
-import { Paper, Group, Title, Container } from "@mantine/core";
-import ColorSchemeToggle from "@components/ColorSchemeToggle";
+import FormDemo from '@containers/Form';
+import { Paper, Group, Title, Container } from '@mantine/core';
+import ColorSchemeToggle from '@components/ColorSchemeToggle';
 
 export default function HomePage() {
   return (

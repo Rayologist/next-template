@@ -1,15 +1,14 @@
-import { Form, Formik, FormikConfig } from "formik";
-import { FormikController } from "@components/Form";
-import { Button, Grid, ButtonProps } from "@mantine/core";
-import { ControllerPropsWithCol } from "types";
-import { useId } from "@mantine/hooks";
+import { Form, Formik, FormikConfig } from 'formik';
+import { FormikController } from '@components/Form';
+import { Button, Grid, ButtonProps } from '@mantine/core';
+import { ControllerPropsWithCol } from 'types';
+import { useId } from '@mantine/hooks';
 
 type Fields = {
   [field: string]: any;
 };
 
-type SimpleFormProps<T extends Fields> = FormikConfig<T> &
-  ControllerPropsWithCol;
+type SimpleFormProps<T extends Fields> = FormikConfig<T> & ControllerPropsWithCol;
 
 const useSimpleForm = <T extends Fields>(props: SimpleFormProps<T>) => {
   const id = useId();
@@ -33,13 +32,11 @@ const useSimpleForm = <T extends Fields>(props: SimpleFormProps<T>) => {
     </Formik>
   );
 
-  FormikWrapper.Button = (props: ButtonProps) => {
-    return (
-      <Button type="submit" form={id} {...props}>
-        {props.children}
-      </Button>
-    );
-  };
+  FormikWrapper.Button = (buttonProps: ButtonProps) => (
+    <Button type="submit" form={id} {...buttonProps}>
+      {buttonProps.children}
+    </Button>
+  );
 
   return FormikWrapper;
 };

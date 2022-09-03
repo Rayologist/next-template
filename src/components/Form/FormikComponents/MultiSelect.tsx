@@ -1,11 +1,11 @@
-import { MultiSelect as MantineMultiSelect } from "@mantine/core";
-import { MultiSelectProps } from "types";
-import { useCustomFormik } from "./Helper";
+import { MultiSelect as MantineMultiSelect } from '@mantine/core';
+import { MultiSelectProps } from 'types';
+import { useCustomFormik } from './Helper';
 
 function MultiSelect(props: MultiSelectProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const multiSelectValue = formik.values[name] as MultiSelectProps["value"];
+  const multiSelectValue = formik.values[name] as MultiSelectProps['value'];
 
   return (
     <MantineMultiSelect

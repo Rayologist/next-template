@@ -1,11 +1,11 @@
-import { Radio } from "@mantine/core";
-import { useCustomFormik } from "./Helper";
-import { RadioGroupProps } from "types";
+import { Radio } from '@mantine/core';
+import { RadioGroupProps } from 'types';
+import { useCustomFormik } from './Helper';
 
 function RadioGroup(props: RadioGroupProps) {
   const { label, name, options, ...rest } = props;
   const [formik, hasError] = useCustomFormik(name);
-  const radioValue = formik.values[name] as RadioGroupProps["value"];
+  const radioValue = formik.values[name] as RadioGroupProps['value'];
 
   return (
     <Radio.Group
@@ -18,15 +18,7 @@ function RadioGroup(props: RadioGroupProps) {
       onBlur={() => formik.setFieldTouched(name, true)}
       {...rest}
     >
-      {options.map((option, index) => {
-        return (
-          <Radio
-            key={`${option.label}-${index}`}
-            value={option.value}
-            label={option.label}
-          />
-        );
-      })}
+      {options.map((option, index) => <Radio key={`${option.label}-${index}`} value={option.value} label={option.label} />)}
     </Radio.Group>
   );
 }

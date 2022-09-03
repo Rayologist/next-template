@@ -1,29 +1,26 @@
-import { FileInputProps, Group, Center } from "@mantine/core";
-import { IconPhoto } from "@tabler/icons";
+import { FileInputProps, Group, Center } from '@mantine/core';
+import { IconPhoto } from '@tabler/icons';
 
-function Value({ file, single }: { file: File | null, single?: boolean }) {
+function Value({ file, single }: { file: File | null; single?: boolean }) {
   if (!file) return null;
   return (
     <Center
       inline
       sx={(theme) => ({
-        backgroundColor:
-          theme.colorScheme === "dark"
-            ? theme.colors.dark[7]
-            : theme.colors.gray[1],
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[1],
         fontSize: theme.fontSizes.xs,
-        padding: "3px 7px",
+        padding: '3px 7px',
         borderRadius: theme.radius.sm,
       })}
     >
       <IconPhoto size={14} style={{ marginRight: 5 }} />
       <span
         style={{
-          whiteSpace: "nowrap",
-          textOverflow: single ? undefined : "ellipsis",
-          overflow: "hidden",
+          whiteSpace: 'nowrap',
+          textOverflow: single ? undefined : 'ellipsis',
+          overflow: 'hidden',
           maxWidth: single ? undefined : 200,
-          display: "inline-block",
+          display: 'inline-block',
         }}
       >
         {file.name}
@@ -32,7 +29,7 @@ function Value({ file, single }: { file: File | null, single?: boolean }) {
   );
 }
 
-const ValueComponent: FileInputProps["valueComponent"] = ({ value }) => {
+const ValueComponent: FileInputProps['valueComponent'] = ({ value }) => {
   if (Array.isArray(value)) {
     return (
       <Group spacing="sm" py="xs">
@@ -43,7 +40,7 @@ const ValueComponent: FileInputProps["valueComponent"] = ({ value }) => {
     );
   }
 
-  return <Value file={value} single/>;
+  return <Value file={value} single />;
 };
 
-export default ValueComponent
+export default ValueComponent;
