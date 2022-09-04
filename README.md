@@ -1,6 +1,6 @@
 # Mantine-styled Formik Components in Typescript
 
-This [mantine-next-template](https://github.com/mantinedev/mantine-next-template) integrates [Formik](https://github.com/jaredpalmer/formik) as a means of form contol. Input components developed by Mantine can be easily controlled through `<FormikController />`. 
+This [mantine-next-template](https://github.com/mantinedev/mantine-next-template) integrates [Formik](https://github.com/jaredpalmer/formik) as a means of form contol. Input components developed by Mantine can be easily controlled through `<FormikController />`.
 
 ## The `useSimpleForm` Hook
 
