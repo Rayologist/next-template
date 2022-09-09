@@ -1,8 +1,9 @@
-import { Form, Formik, FormikConfig } from 'formik';
+import { Form, Formik, FormikConfig, FormikContextType } from 'formik';
 import { FormikController } from '@components/Form';
 import { Button, Grid, ButtonProps } from '@mantine/core';
 import { ControllerPropsWithCol } from 'types';
 import { useId } from '@mantine/hooks';
+import { ReactNode } from 'react';
 
 type Fields = {
   [field: string]: any;
@@ -15,20 +16,27 @@ const useSimpleForm = <T extends Fields>(props: SimpleFormProps<T>) => {
 
   const { controllers, ...rest } = props;
 
-  const FormikWrapper = () => (
+  const FormikWrapper = ({
+    children,
+  }: {
+    children?: ReactNode | ((formikContext: FormikContextType<T>) => ReactNode);
+  }) => (
     <Formik {...rest}>
-      <Form id={id}>
-        <Grid justify="center" gutter="xl">
-          {controllers.map((field, index) => {
-            const { col } = field;
-            return (
-              <Grid.Col key={`${field.name}-${index}`} {...col}>
-                <FormikController {...field} />
-              </Grid.Col>
-            );
-          })}
-        </Grid>
-      </Form>
+      {(formik) => (
+        <Form id={id}>
+          <Grid justify="center" gutter="xl">
+            {controllers.map((field, index) => {
+              const { col } = field;
+              return (
+                <Grid.Col key={`${field.name}-${index}`} {...col}>
+                  <FormikController {...field} />
+                </Grid.Col>
+              );
+            })}
+          </Grid>
+          {typeof children === 'function' ? children?.(formik) : children}
+        </Form>
+      )}
     </Formik>
   );
 
