@@ -1,19 +1,15 @@
 import { useSimpleForm } from '@components/Form';
 import { Checkbox, Anchor, Paper, Title, Text, Container, Group } from '@mantine/core';
-import { useState } from 'react';
 
 export default function AuthenticationTitle() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const LoginForm = useSimpleForm({
     initialValues: {
       account: '',
       password: '',
     },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     onSubmit: (values, formikHelpers) => {
-      setIsSubmitting(true);
       console.log(values); // eslint-disable-line no-console
-      setTimeout(() => setIsSubmitting(false), 2000);
+      setTimeout(() => formikHelpers.setSubmitting(false), 2000);
     },
     controllers: [
       {
@@ -48,16 +44,21 @@ export default function AuthenticationTitle() {
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-        <LoginForm />
-        <Group position="apart" mt="md">
-          <Checkbox label="Remember me" />
-          <Anchor<'a'> onClick={(event) => event.preventDefault()} href="#" size="sm">
-            Forgot password?
-          </Anchor>
-        </Group>
-        <LoginForm.Button fullWidth mt="xl" loading={isSubmitting}>
-          {isSubmitting ? 'Signing in...' : 'Sign in'}
-        </LoginForm.Button>
+        <LoginForm>
+          {(formik) => (
+            <>
+              <Group position="apart" mt="md">
+                <Checkbox label="Remember me" />
+                <Anchor<'a'> onClick={(event) => event.preventDefault()} href="#" size="sm">
+                  Forgot password?
+                </Anchor>
+              </Group>
+              <LoginForm.Button fullWidth mt="xl" loading={formik.isSubmitting}>
+                {formik.isSubmitting ? 'Signing in...' : 'Sign in'}
+              </LoginForm.Button>
+            </>
+          )}
+        </LoginForm>
       </Paper>
     </Container>
   );
