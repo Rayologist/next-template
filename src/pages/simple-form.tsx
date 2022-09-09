@@ -1,5 +1,6 @@
 import { useSimpleForm } from '@components/Form';
-import { Checkbox, Anchor, Paper, Title, Text, Container, Group } from '@mantine/core';
+import { Checkbox, Anchor, Paper, Title, Text, Container, Group, Box } from '@mantine/core';
+import { object, string } from 'yup';
 
 export default function AuthenticationTitle() {
   const LoginForm = useSimpleForm({
@@ -11,16 +12,22 @@ export default function AuthenticationTitle() {
       console.log(values); // eslint-disable-line no-console
       setTimeout(() => formikHelpers.setSubmitting(false), 2000);
     },
+    validationSchema: object({
+      account: string().required('Required'),
+      password: string().required('Required'),
+    }),
     controllers: [
       {
         control: 'text-input',
         label: 'Account',
         name: 'account',
+        withAsterisk: true,
       },
       {
         control: 'password-input',
         label: 'Password',
         name: 'password',
+        withAsterisk: true,
       },
     ],
   });
@@ -46,8 +53,8 @@ export default function AuthenticationTitle() {
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <LoginForm>
           {(formik) => (
-            <>
-              <Group position="apart" mt="md">
+            <Box mt={30}>
+              <Group position="apart">
                 <Checkbox label="Remember me" />
                 <Anchor<'a'> onClick={(event) => event.preventDefault()} href="#" size="sm">
                   Forgot password?
@@ -56,7 +63,7 @@ export default function AuthenticationTitle() {
               <LoginForm.Button fullWidth mt="xl" loading={formik.isSubmitting}>
                 {formik.isSubmitting ? 'Signing in...' : 'Sign in'}
               </LoginForm.Button>
-            </>
+            </Box>
           )}
         </LoginForm>
       </Paper>
