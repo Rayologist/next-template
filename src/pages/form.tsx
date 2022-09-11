@@ -2,7 +2,7 @@ import FormDemo from '@containers/Form';
 import { Paper, Group, Title, Container } from '@mantine/core';
 import ColorSchemeToggle from '@components/ColorSchemeToggle';
 
-export default function HomePage() {
+export default function Form() {
   return (
     <Container size={700} my={20}>
       <Group position="right" mt={5}>
