@@ -160,6 +160,7 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
 
         <ColumnToggle<T>
           getIsAllColumnsVisible={table.getIsAllColumnsVisible}
+          getIsSomeColumnsVisible={table.getIsSomeColumnsVisible}
           getAllLeafColumns={table.getAllLeafColumns}
           toggleAllColumnsVisible={table.toggleAllColumnsVisible}
         />
@@ -174,7 +175,7 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
         <MantineTable
           horizontalSpacing="lg"
           verticalSpacing="xs"
-          sx={{ minWidth: 1050, tableLayout: 'fixed' }}
+          sx={{ width: 1050, tableLayout: 'fixed' }}
           highlightOnHover
         >
           <TH />

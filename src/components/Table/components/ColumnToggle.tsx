@@ -5,15 +5,23 @@ import { ReactNode, memo } from 'react';
 
 type ColumnToggleProps<RowData> = Pick<
   Table<RowData>,
-  'getIsAllColumnsVisible' | 'getAllLeafColumns' | 'toggleAllColumnsVisible'
+  | 'getIsAllColumnsVisible'
+  | 'getAllLeafColumns'
+  | 'toggleAllColumnsVisible'
+  | 'getIsSomeColumnsVisible'
 >;
 
 function ColumnToggle<RowData>(props: ColumnToggleProps<RowData>) {
-  const { getAllLeafColumns, getIsAllColumnsVisible, toggleAllColumnsVisible } = props;
+  const {
+    getAllLeafColumns,
+    getIsAllColumnsVisible,
+    toggleAllColumnsVisible,
+    getIsSomeColumnsVisible,
+  } = props;
 
   const columns = getAllLeafColumns();
   const allChecked = getIsAllColumnsVisible();
-  const indeterminate = columns.some((column) => column.getIsVisible()) && !allChecked;
+  const indeterminate = getIsSomeColumnsVisible() && !allChecked;
 
   const Target = memo(() => (
     <Popover.Target>
