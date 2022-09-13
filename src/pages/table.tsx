@@ -59,6 +59,7 @@ const columns = [
   columnHelper.accessor('sex', {
     header: 'Sex',
     filterFn: 'equalsString',
+    minSize: 150,
     meta: {
       filterInput: {
         type: 'select',
