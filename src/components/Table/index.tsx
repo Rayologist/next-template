@@ -145,23 +145,41 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
 
   const TB = memo(() => (
     <tbody>
-      {paddingTop > 0 && (
-        <tr>
-          <td style={{ height: `${paddingTop}px` }} />
-        </tr>
-      )}
-      {virtualRows.map((virtualRow) => {
-        const row = rows[virtualRow.index];
-        return (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
+      {table.getRowModel().rows.length > 0 ? (
+        <>
+          {paddingTop > 0 && (
+            <tr>
+              <td style={{ height: `${paddingTop}px` }} />
+            </tr>
+          )}
+          {virtualRows.map((virtualRow) => {
+            const row = rows[virtualRow.index];
+            return (
+              <tr key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
                     <Text lineClamp={lineClamp}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </Text>
+                  </td>
+                ))}
+              </tr>
+            );
+          })}
 
-      {paddingBottom > 0 && (
+          {paddingBottom > 0 && (
+            <tr>
+              <td style={{ height: `${paddingBottom}px` }} />
+            </tr>
+          )}
+        </>
+      ) : (
         <tr>
-          <td style={{ height: `${paddingBottom}px` }} />
+          <td colSpan={table.getVisibleLeafColumns().length}>
+            <Text weight={500} align="center">
+              Nothing found
+            </Text>
+          </td>
         </tr>
       )}
     </tbody>
