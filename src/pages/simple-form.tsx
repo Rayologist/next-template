@@ -33,7 +33,7 @@ export default function AuthenticationTitle() {
   });
 
   return (
-    <Container size={420} my={40}>
+    <Container size={420} mb={40}>
       <Title
         align="center"
         sx={(theme) => ({

@@ -115,7 +115,7 @@ function TableSample() {
   if (!data) return <Loader />;
 
   return (
-    <Container sx={{ marginTop: 50 }} size={1200}>
+    <Container>
       <Paper withBorder sx={{ padding: '1rem' }}>
         <Table data={data} columns={columns} />
       </Paper>
