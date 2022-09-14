@@ -5,6 +5,7 @@ import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
+import { HeaderResponsive } from 'src/Layout/common';
 
 function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
@@ -29,6 +30,14 @@ function App(props: AppProps & { colorScheme: ColorScheme }) {
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
           <NotificationsProvider>
+            <HeaderResponsive
+              links={[
+                { link: '/table', label: 'Table' },
+                { link: '/form', label: 'Form' },
+                { link: '/simple-form', label: 'Simple Form' },
+                { link: '/rte', label: 'Rich Text Editor' },
+              ]}
+            />
             <Component {...pageProps} />
           </NotificationsProvider>
         </MantineProvider>
