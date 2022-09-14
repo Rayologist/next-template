@@ -22,6 +22,9 @@ import {
   Center,
   ScrollArea,
   Divider,
+  ScrollAreaProps,
+  TableProps as MantineTableProps,
+  TextProps,
 } from '@mantine/core';
 
 import useStyles from './styles';
@@ -31,7 +34,26 @@ import ColumnToggle from './components/ColumnToggle';
 import ColumnFilter from './components/ColumnFilter';
 import { inDateRange } from './components/ColumnFilter/FilterFn';
 
-function Table<T extends RowData>({ data, columns }: { data: T[]; columns: ColumnDef<T, any>[] }) {
+type TableProps<T extends RowData> = {
+  data: T[];
+  columns: ColumnDef<T, any>[];
+  width?: string | number;
+  height?: string | number;
+  scrollAreaProps?: ScrollAreaProps;
+  lineClamp?: TextProps['lineClamp'];
+} & MantineTableProps;
+
+function Table<T extends RowData>(props: TableProps<T>) {
+  const {
+    data,
+    columns,
+    width,
+    height,
+    scrollAreaProps,
+    lineClamp = 1,
+    ...mantineTableProps
+  } = props;
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -205,14 +227,16 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
       <ScrollArea
         viewportRef={tableContainerRef}
         type="scroll"
-        style={{ height: 600 }}
+        style={{ height: height ?? 600 }}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+        {...scrollAreaProps}
       >
         <MantineTable
           horizontalSpacing="lg"
           verticalSpacing="xs"
-          sx={{ width: 1050, tableLayout: 'fixed' }}
+          sx={{ width: width ?? 1000, tableLayout: 'fixed' }}
           highlightOnHover
+          {...mantineTableProps}
         >
           <TH />
           <TB />
