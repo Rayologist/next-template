@@ -23,6 +23,7 @@
     "@mantine/next": "^5.3.0",
     "@mantine/notifications": "^5.3.0",
     "@mantine/prism": "^5.3.0",
+    "@mantine/rte": "^5.3.0",
     "@next/bundle-analyzer": "^12.3.0",
     "@tabler/icons": "^1.95.1",
     "@tanstack/react-table": "^8.5.13",
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^7.5.0",
+    "@mantine/ds": "^5.3.0",
     "@next/eslint-plugin-next": "^12.3.0",
     "@types/node": "18.7.6",
     "@types/react": "18.0.17",
