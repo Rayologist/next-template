@@ -96,10 +96,10 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
                   <UnstyledButton
                     onClick={header.column.getToggleSortingHandler()}
                     className={classes.control}
-                    sx={{ flexGrow: 1}}
+                    sx={{ flexGrow: 1 }}
                   >
                     <Group position="apart" spacing={0}>
-                    <Text weight={500} size="sm">
+                      <Text weight={500} size="sm" lineClamp={lineClamp}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(header.column.columnDef.header, header.getContext())}
@@ -155,11 +155,9 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
         return (
           <tr key={row.id}>
             {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
-            ))}
-          </tr>
-        );
-      })}
+                    <Text lineClamp={lineClamp}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </Text>
 
       {paddingBottom > 0 && (
         <tr>
