@@ -1,13 +1,9 @@
 import FormDemo from '@containers/Form';
-import { Paper, Group, Title, Container } from '@mantine/core';
-import ColorSchemeToggle from '@components/ColorSchemeToggle';
+import { Paper, Title, Container } from '@mantine/core';
 
 export default function Form() {
   return (
     <Container size={700} my={20}>
-      <Group position="right" mt={5}>
-        <ColorSchemeToggle />
-      </Group>
       <Title order={1} align="center">
         Sample Form
       </Title>
