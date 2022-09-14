@@ -52,6 +52,7 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
       columnVisibility,
       columnFilters,
     },
+    columnResizeMode: 'onChange',
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
@@ -87,37 +88,56 @@ function Table<T extends RowData>({ data, columns }: { data: T[]; columns: Colum
     <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
       {table.getHeaderGroups().map((headerGroup) => (
         <tr key={headerGroup.id}>
-          {headerGroup.headers.map((header) => (
-            <th className={classes.th} key={header.id} style={{ width: header.getSize() }}>
-              <Group spacing={0}>
-                <UnstyledButton
-                  onClick={header.column.getToggleSortingHandler()}
-                  className={classes.control}
-                  sx={{ flexGrow: 1 }}
-                >
-                  <Group position="apart">
+          {headerGroup.headers.map((header) => {
+            const isResizing = header.column.getIsResizing();
+            return (
+              <th className={classes.th} key={header.id} style={{ width: header.getSize() }}>
+                <Group spacing={0}>
+                  <UnstyledButton
+                    onClick={header.column.getToggleSortingHandler()}
+                    className={classes.control}
+                    sx={{ flexGrow: 1}}
+                  >
+                    <Group position="apart" spacing={0}>
                     <Text weight={500} size="sm">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
-                    </Text>
-                    {header.column.getCanSort() && (
-                      <Center>
-                        <SortingIcon
-                          sorted={header.column.getIsSorted()}
-                          canSort={header.column.getCanSort()}
-                          size={14}
-                          stroke={1.5}
-                        />
-                      </Center>
-                    )}
-                  </Group>
-                </UnstyledButton>
-                {header.column.getCanFilter() && <ColumnFilter column={header.column} />}
-                <Divider orientation="vertical" variant="dashed" mx={5} />
-              </Group>
-            </th>
-          ))}
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(header.column.columnDef.header, header.getContext())}
+                      </Text>
+                      {header.column.getCanSort() && (
+                        <Center>
+                          <SortingIcon
+                            sorted={header.column.getIsSorted()}
+                            canSort={header.column.getCanSort()}
+                            size={14}
+                            stroke={1.5}
+                          />
+                        </Center>
+                      )}
+                    </Group>
+                  </UnstyledButton>
+                  {header.column.getCanFilter() && <ColumnFilter column={header.column} />}
+                  <Divider
+                    orientation="vertical"
+                    variant={isResizing ? 'solid' : 'dashed'}
+                    size={isResizing ? 'xl' : 'xs'}
+                    mx={10}
+                    onMouseDown={header.getResizeHandler()}
+                    onTouchStart={header.getResizeHandler()}
+                    sx={{
+                      userSelect: 'none',
+                      touchAction: 'none',
+                      cursor: 'col-resize',
+                      '&:hover': {
+                        borderLeftWidth: '4px',
+                        borderLeftStyle: 'solid',
+                      },
+                    }}
+                  />
+                </Group>
+              </th>
+            );
+          })}
         </tr>
       ))}
     </thead>
