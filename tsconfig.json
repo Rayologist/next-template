@@ -16,7 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "types": ["./src/types.ts"],
+      "types": ["./src/types/index.ts"],
       "@components/*": ["./src/components/*"],
       "@containers/*": ["./src/containers/*"]
     }

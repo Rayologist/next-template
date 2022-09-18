@@ -20,6 +20,7 @@ import { RowData } from '@tanstack/react-table';
 import { inDateRange } from '@components/Table/components/ColumnFilter/FilterFn';
 import FilterInput from '@components/Table/components/ColumnFilter/FilterInput';
 
+// ------@tanstack/react-table compoenent types------
 declare module '@tanstack/react-table' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface ColumnMeta<TData extends RowData, TValue> {
@@ -71,6 +72,7 @@ export type FilterInput =
 
 export type FilterInputType = FilterInput['type'];
 
+// ------Formik Component types------
 export type Option = {
   label: string;
   value: any;
