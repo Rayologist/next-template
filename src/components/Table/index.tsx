@@ -37,22 +37,13 @@ import { inDateRange } from './components/ColumnFilter/FilterFn';
 type TableProps<T extends RowData> = {
   data: T[];
   columns: ColumnDef<T, any>[];
-  width?: string | number;
   height?: string | number;
   scrollAreaProps?: ScrollAreaProps;
   lineClamp?: TextProps['lineClamp'];
 } & MantineTableProps;
 
 function Table<T extends RowData>(props: TableProps<T>) {
-  const {
-    data,
-    columns,
-    width,
-    height,
-    scrollAreaProps,
-    lineClamp = 1,
-    ...mantineTableProps
-  } = props;
+  const { data, columns, height, scrollAreaProps, lineClamp = 1, ...mantineTableProps } = props;
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
@@ -139,23 +130,25 @@ function Table<T extends RowData>(props: TableProps<T>) {
                     </Group>
                   </UnstyledButton>
                   {header.column.getCanFilter() && <ColumnFilter column={header.column} />}
-                  <Divider
-                    orientation="vertical"
-                    variant={isResizing ? 'solid' : 'dashed'}
-                    size={isResizing ? 'xl' : 'xs'}
-                    mx={10}
-                    onMouseDown={header.getResizeHandler()}
-                    onTouchStart={header.getResizeHandler()}
-                    sx={{
-                      userSelect: 'none',
-                      touchAction: 'none',
-                      cursor: 'col-resize',
-                      '&:hover': {
-                        borderLeftWidth: '4px',
-                        borderLeftStyle: 'solid',
-                      },
-                    }}
-                  />
+                  {header.column.getCanResize() && (
+                    <Divider
+                      orientation="vertical"
+                      variant={isResizing ? 'solid' : 'dashed'}
+                      size={isResizing ? 'xl' : 'xs'}
+                      mx={10}
+                      onMouseDown={header.getResizeHandler()}
+                      onTouchStart={header.getResizeHandler()}
+                      sx={{
+                        userSelect: 'none',
+                        touchAction: 'none',
+                        cursor: 'col-resize',
+                        '&:hover': {
+                          borderLeftWidth: '4px',
+                          borderLeftStyle: 'solid',
+                        },
+                      }}
+                    />
+                  )}
                 </Group>
               </th>
             );
@@ -227,14 +220,14 @@ function Table<T extends RowData>(props: TableProps<T>) {
       <ScrollArea
         viewportRef={tableContainerRef}
         type="scroll"
-        style={{ height: height ?? 600 }}
+        style={{ height: height ?? 550 }}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
         {...scrollAreaProps}
       >
         <MantineTable
           horizontalSpacing="lg"
           verticalSpacing="xs"
-          sx={{ width: width ?? 1000, tableLayout: 'fixed' }}
+          sx={{ tableLayout: 'fixed' }}
           highlightOnHover
           {...mantineTableProps}
         >
