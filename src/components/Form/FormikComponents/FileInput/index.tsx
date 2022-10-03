@@ -17,7 +17,7 @@ function FileInput(props: FileInputProps<boolean>) {
       valueComponent={ValueComponent}
       value={fileInputValue}
       onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={formik.handleBlur}
+      onBlur={() => formik.setFieldTouched(name, true)}
       error={hasError}
       {...rest}
     />
