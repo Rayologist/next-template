@@ -55,6 +55,9 @@ export type ControllerProps =
   | ({ control: 'multi-select' } & MultiSelectProps)
   | ({ control: 'file-input' } & FileInputProps<boolean>);
 
-export type ControllerPropsWithCol = {
-  controllers: (ControllerProps & { col?: ColProps })[];
+export type SimpleFormControllerProps<FormikContextType> = {
+  controllers: (ControllerProps & {
+    col?: ColProps;
+    after?: ReactNode | ((formikContext: FormikContextType) => ReactNode);
+  })[];
 };
