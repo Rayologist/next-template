@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, ReactNode } from 'react';
 import {
   PasswordInputProps as MantinePasswordInputProps,
   RadioGroupProps as MantineRadioGroupProps,
@@ -74,7 +74,7 @@ export type FilterInputType = FilterInput['type'];
 
 // ------Mantine-Formik Component types------
 export type Option = {
-  label: string;
+  label: ReactNode;
   value: any;
 };
 
@@ -115,6 +115,9 @@ export type ControllerProps =
   | ({ control: 'multi-select' } & MultiSelectProps)
   | ({ control: 'file-input' } & FileInputProps<boolean>);
 
-export type ControllerPropsWithCol = {
-  controllers: (ControllerProps & { col?: ColProps })[];
+export type SimpleFormControllerProps<FormikContextType> = {
+  controllers: (ControllerProps & {
+    col?: ColProps;
+    after?: ReactNode | ((formikContext: FormikContextType) => ReactNode);
+  })[];
 };
