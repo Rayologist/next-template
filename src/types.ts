@@ -11,9 +11,10 @@ import {
   ColProps,
 } from '@mantine/core';
 import { DatePickerProps as MantineDatePickerProps } from '@mantine/dates';
+import { ReactNode } from 'react';
 
 export type Option = {
-  label: string;
+  label: ReactNode;
   value: any;
 };
 
