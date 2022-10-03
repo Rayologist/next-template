@@ -72,7 +72,7 @@ export type FilterInput =
 
 export type FilterInputType = FilterInput['type'];
 
-// ------Formik Component types------
+// ------Mantine-Formik Component types------
 export type Option = {
   label: string;
   value: any;
