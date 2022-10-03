@@ -1,6 +1,6 @@
 import { Form, Formik, FormikConfig, FormikContextType } from 'formik';
+import { Button, Grid, ButtonProps, useMantineTheme } from '@mantine/core';
 import { FormikController } from '@components/Form';
-import { Button, Grid, ButtonProps } from '@mantine/core';
 import { SimpleFormControllerProps } from 'types';
 import { useId } from '@mantine/hooks';
 import { ReactNode } from 'react';
@@ -14,6 +14,7 @@ type SimpleFormProps<T extends Fields> = FormikConfig<T> &
 
 const useSimpleForm = <T extends Fields>(props: SimpleFormProps<T>) => {
   const id = useId();
+  const theme = useMantineTheme();
 
   const { controllers, ...formikProps } = props;
 
@@ -43,7 +44,7 @@ const useSimpleForm = <T extends Fields>(props: SimpleFormProps<T>) => {
   );
 
   FormikWrapper.Button = (buttonProps: ButtonProps) => (
-    <Button type="submit" form={id} {...buttonProps}>
+    <Button type="submit" form={id} loaderProps={{ color: theme.colors.blue[5] }} {...buttonProps}>
       {buttonProps.children}
     </Button>
   );
