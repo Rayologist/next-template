@@ -13,7 +13,7 @@ function NumberInput(props: NumberInputProps) {
       name={name}
       value={inputValue ?? undefined}
       onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={formik.handleBlur}
+      onBlur={() => formik.setFieldTouched(name, true)}
       error={hasError}
       {...rest}
     />
