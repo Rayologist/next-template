@@ -1,6 +1,5 @@
 import { useFormikContext, FormikContextType } from 'formik';
-import { Group, Text } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons';
+import ErrorMessage from './ErrorMessage';
 
 interface FormValues {
   [key: string]: any;
@@ -10,14 +9,7 @@ function useCustomFormik(name: string): [FormikContextType<FormValues>, JSX.Elem
   const formik = useFormikContext<FormValues>();
   const { touched, errors } = formik;
   const error = touched[name] && errors[name];
-  const hasError = error ? (
-    <Group spacing={5} sx={{ position: 'absolute' }}>
-      <IconAlertCircle width={18} />
-      <Text weight={500} size="sm">
-        {error.toString()}
-      </Text>
-    </Group>
-  ) : null;
+  const hasError = error ? <ErrorMessage text={error.toString()} /> : null;
 
   return [formik, hasError];
 }
