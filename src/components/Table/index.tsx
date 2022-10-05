@@ -135,7 +135,6 @@ function Table<T extends RowData>(props: TableProps<T>) {
                       orientation="vertical"
                       variant={isResizing ? 'solid' : 'dashed'}
                       size={isResizing ? 'xl' : 'xs'}
-                      mx={10}
                       onMouseDown={header.getResizeHandler()}
                       onTouchStart={header.getResizeHandler()}
                       sx={{
@@ -225,7 +224,7 @@ function Table<T extends RowData>(props: TableProps<T>) {
         {...scrollAreaProps}
       >
         <MantineTable
-          horizontalSpacing="lg"
+          horizontalSpacing="sm"
           verticalSpacing="xs"
           sx={{ tableLayout: 'fixed' }}
           highlightOnHover
