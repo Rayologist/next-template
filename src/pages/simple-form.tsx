@@ -1,4 +1,4 @@
-import { useSimpleForm } from '@components/Form';
+import useSimpleForm from '@components/Form';
 import { Checkbox, Anchor, Paper, Title, Text, Container, Group, Box } from '@mantine/core';
 import { object, string } from 'yup';
 
