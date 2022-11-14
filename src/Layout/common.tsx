@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createStyles, Header, Container, Group, Burger, Paper, Transition } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { NextLink } from '@mantine/next';
+import Link from 'next/link';
 import { MantineLogo } from '@mantine/ds';
 import ColorSchemeToggle from '@components/ColorSchemeToggle';
 import { useRouter } from 'next/router';
@@ -96,7 +96,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
   }, [currentLink]);
 
   const items = links.map((link) => (
-    <NextLink
+    <Link
       key={link.label}
       href={link.link}
       className={cx(classes.link, { [classes.linkActive]: active === link.link })}
@@ -106,7 +106,7 @@ export function HeaderResponsive({ links }: HeaderResponsiveProps) {
       }}
     >
       {link.label}
-    </NextLink>
+    </Link>
   ));
 
   return (
