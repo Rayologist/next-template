@@ -43,8 +43,8 @@ export function Save() {
         const content = editor?.getHTML();
         console.log(content); // eslint-disable-line no-console
       }}
-      aria-label="Clear"
-      title="Clear"
+      aria-label="Save"
+      title="Save"
     >
       <IconDeviceFloppy stroke={1.5} size={16} />
     </RichTextEditor.Control>
