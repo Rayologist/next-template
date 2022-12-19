@@ -1,4 +1,4 @@
-import { Group } from '@mantine/core';
+import { Group, Tooltip } from '@mantine/core';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -76,8 +76,9 @@ export default function Editor() {
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link />
-          <RichTextEditor.Unlink />
+          <Tooltip label="Hyperlink" withArrow sx={{ fontSize: '12px' }}>
+            <RichTextEditor.Link />
+          </Tooltip>
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
@@ -89,6 +90,11 @@ export default function Editor() {
         <RichTextEditor.ControlsGroup>
           <Undo />
           <Redo />
+        </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
+          <Tooltip label="Clear formatting" withArrow sx={{ fontSize: '12px' }}>
+            <RichTextEditor.ClearFormatting />
+          </Tooltip>
         </RichTextEditor.ControlsGroup>
 
         <Group spacing={10} sx={{ marginLeft: 'auto' }}>
