@@ -39,25 +39,30 @@ export default function Editor() {
           <RichTextEditor.Bold />
           <RichTextEditor.Italic />
           <RichTextEditor.Underline />
-          <RichTextEditor.ColorPicker
-            colors={[
-              '#25262b',
-              '#868e96',
-              '#fa5252',
-              '#e64980',
-              '#be4bdb',
-              '#7950f2',
-              '#4c6ef5',
-              '#228be6',
-              '#15aabf',
-              '#12b886',
-              '#40c057',
-              '#82c91e',
-              '#fab005',
-              '#fd7e14',
-            ]}
-          />
-          <RichTextEditor.ClearFormatting />
+          <RichTextEditor.Strikethrough />
+        </RichTextEditor.ControlsGroup>
+
+        <RichTextEditor.ControlsGroup>
+          <Tooltip label="Text color" withArrow sx={{ fontSize: '12px' }}>
+            <RichTextEditor.ColorPicker
+              colors={[
+                '#25262b',
+                '#868e96',
+                '#fa5252',
+                '#e64980',
+                '#be4bdb',
+                '#7950f2',
+                '#4c6ef5',
+                '#228be6',
+                '#15aabf',
+                '#12b886',
+                '#40c057',
+                '#82c91e',
+                '#fab005',
+                '#fd7e14',
+              ]}
+            />
+          </Tooltip>
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
@@ -97,7 +102,7 @@ export default function Editor() {
           </Tooltip>
         </RichTextEditor.ControlsGroup>
 
-        <Group spacing={10} sx={{ marginLeft: 'auto' }}>
+        <Group spacing={5} sx={{ marginLeft: 'auto' }}>
           <RichTextEditor.ControlsGroup>
             <ClearAll />
           </RichTextEditor.ControlsGroup>
