@@ -1,12 +1,6 @@
-# Mantine-styled Formik Components in Typescript
+# Next Template
 
-This [mantine-next-template](https://github.com/mantinedev/mantine-next-template) integrates [Formik](https://github.com/jaredpalmer/formik) as a means of form contol. Input components developed by Mantine can be easily controlled through `<FormikController />`.
-
-## The `useSimpleForm` Hook
-
-A custom hook `useSimpleForm` is implemented to solve the problem of boilerplate codes when developers are constructing Formik forms, as shown in `src/pages/index.tsx`. The simple form example is adapted from [Mantine UI](https://ui.mantine.dev/category/authentication#authentication-title), and can be found in `src/pages/simple-form.tsx`.
-
-![Sample Form](assets/form.png)
+The template integrates typescript, mantine, zod, react-hook-form, @tanstack/react-table, @tanstack/react-virtual
 
 ## Getting Started
 
