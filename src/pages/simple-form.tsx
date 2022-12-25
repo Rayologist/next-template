@@ -1,39 +1,49 @@
-import useSimpleForm from '@components/Form';
 import { Checkbox, Anchor, Paper, Title, Text, Container, Group, Box } from '@mantine/core';
-import { object, string } from 'yup';
+import { z } from 'zod';
+import { useForm } from '@components/Form';
+
+const sleep = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 export default function AuthenticationTitle() {
-  const LoginForm = useSimpleForm({
-    initialValues: {
+  const LoginForm = useForm<{ account: string; password: string }>({
+    defaultValues: {
       account: '',
       password: '',
     },
-    onSubmit: (values, formikHelpers) => {
+    onSubmit: async (values, actions) => {
       console.log(values); // eslint-disable-line no-console
-      setTimeout(() => formikHelpers.setSubmitting(false), 2000);
+      await sleep(1000);
+      actions.setError(
+        'account',
+        { message: 'Incorrect account or password' },
+        { shouldFocus: false }
+      );
     },
-    validationSchema: object({
-      account: string().required('Required'),
-      password: string().required('Required'),
+    schema: z.object({
+      account: z.string().min(1, { message: 'Required' }),
+      password: z.string().min(1, { message: 'Required' }),
     }),
-    controllers: [
-      {
+    controllers: {
+      account: {
         control: 'text-input',
         label: 'Account',
         name: 'account',
         withAsterisk: true,
       },
-      {
+      password: {
         control: 'password-input',
         label: 'Password',
         name: 'password',
         withAsterisk: true,
       },
-    ],
+    },
   });
 
   return (
-    <Container size={420} mb={40}>
+    <Container size={420} my={40}>
       <Title
         align="center"
         sx={(theme) => ({
@@ -52,7 +62,7 @@ export default function AuthenticationTitle() {
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <LoginForm>
-          {(formik) => (
+          {({ formState: { isSubmitting } }) => (
             <Box mt={30}>
               <Group position="apart">
                 <Checkbox label="Remember me" />
@@ -60,8 +70,8 @@ export default function AuthenticationTitle() {
                   Forgot password?
                 </Anchor>
               </Group>
-              <LoginForm.Button fullWidth mt="xl" loading={formik.isSubmitting}>
-                {formik.isSubmitting ? 'Signing in...' : 'Sign in'}
+              <LoginForm.Button fullWidth mt="xl" loading={isSubmitting} type="submit">
+                {isSubmitting ? 'Signing in...' : 'Sign in'}
               </LoginForm.Button>
             </Box>
           )}

@@ -1,11 +1,53 @@
-import { Form, Formik, FormikHelpers } from 'formik';
-import { FormikController } from '@components/Form';
+import { useForm as useHookForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { Button, Grid, ColProps } from '@mantine/core';
-import { object, string, number, array, date, ref } from 'yup';
 import { ControllerProps } from 'types';
+import { FormController } from '@components/Form';
 
-function FormDemo() {
-  interface Values {
+const Form = () => {
+  const schema = z
+    .object({
+      username: z.string().min(1, { message: 'Required' }),
+      password: z.string().min(1, { message: 'Required' }),
+      age: z
+        .number()
+        .positive()
+        .nullable()
+        .superRefine((value, ctx) => {
+          if (value == null) {
+            ctx.addIssue({
+              code: 'custom',
+              message: 'Required',
+            });
+          }
+        }),
+      confirmPassword: z.string().min(1, { message: 'Required' }),
+      email: z.string().min(1, { message: 'Required' }).email({ message: 'Wrong Format' }),
+      drinks: z.string().array().min(1, { message: 'Required' }),
+      position: z.string().min(1, { message: 'Required' }),
+      browser: z.string().min(1, { message: 'Required' }),
+      comments: z.string().min(1, { message: 'Required' }),
+      date: z
+        .date()
+        .nullable()
+        .superRefine((value, ctx) => {
+          if (value == null) {
+            ctx.addIssue({
+              code: 'custom',
+              message: 'Required',
+            });
+          }
+        }),
+      programmingLanguage: z.string().array().min(1, { message: 'Required' }),
+      resume: z.custom<File>().array().min(1, { message: 'Required' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'],
+    });
+
+  const methods = useHookForm<{
     username: string;
     email: string;
     age: number | null;
@@ -18,43 +60,23 @@ function FormDemo() {
     date: Date | null;
     programmingLanguage: Array<string>;
     resume: File[];
-  }
-
-  const initialValue: Values = {
-    username: '',
-    password: '',
-    age: null,
-    confirmPassword: '',
-    email: '',
-    drinks: [],
-    position: '',
-    browser: '',
-    comments: '',
-    date: null,
-    programmingLanguage: [],
-    resume: [],
-  };
-
-  const onSubmit = (values: Values, actions: FormikHelpers<Values>) => {
-    console.log(values); // eslint-disable-line no-console
-    setTimeout(() => actions.setSubmitting(false), 2000);
-  };
-
-  const validationSchema = object({
-    username: string().required('Required'),
-    email: string().email('Wrong Format').required('Required'),
-    age: number().required('Required').nullable(),
-    password: string().required('Required'),
-    confirmPassword: string()
-      .oneOf([ref('password'), null], 'Passwords do not match')
-      .required('Required'),
-    drinks: array().min(1, 'Required'),
-    position: string().required('Required').nullable(),
-    browser: string().required('Required').nullable(),
-    comments: string().required('Required'),
-    date: date().required('Required').nullable(),
-    programmingLanguage: array().min(1, 'Required'),
-    resume: array().min(1, 'Required'),
+  }>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      username: '',
+      password: '',
+      age: null,
+      confirmPassword: '',
+      email: '',
+      drinks: [],
+      position: '',
+      browser: '',
+      comments: '',
+      date: null,
+      programmingLanguage: [],
+      resume: [],
+    },
+    mode: 'onTouched',
   });
 
   const fields: (ControllerProps & { col?: ColProps })[] = [
@@ -172,6 +194,7 @@ function FormDemo() {
       multiple: true,
       clearable: true,
       withAsterisk: true,
+      accept: 'application/pdf',
       col: {
         md: 12,
         lg: 12,
@@ -190,28 +213,30 @@ function FormDemo() {
   ];
 
   return (
-    <Formik initialValues={initialValue} onSubmit={onSubmit} validationSchema={validationSchema}>
-      {(formik) => (
-        <Form>
-          <Grid justify="center" gutter="xl">
-            {fields.map((field, index) => {
-              const { col } = field;
-              return (
-                <Grid.Col xs={12} sm={12} md={6} lg={6} key={`${field.name}-${index}`} {...col}>
-                  <FormikController {...field} />
-                </Grid.Col>
-              );
-            })}
-            <Grid.Col xs={3.5} sm={2.5} md={2.5} lg={2.5} xl={2.5} mt={10}>
-              <Button type="submit" loading={formik.isSubmitting} fullWidth>
-                {formik.isSubmitting ? 'Submitting' : 'Submit'}
-              </Button>
-            </Grid.Col>
-          </Grid>
-        </Form>
-      )}
-    </Formik>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit((data) => {
+          console.log(data); // eslint-disable-line no-console
+        })}
+      >
+        <Grid justify="center" gutter="xl">
+          {fields.map((field, index) => {
+            const { col } = field;
+            return (
+              <Grid.Col xs={12} sm={12} md={6} lg={6} key={`${field.name}-${index}`} {...col}>
+                <FormController {...field} />
+              </Grid.Col>
+            );
+          })}
+          <Grid.Col xs={3.5} sm={2.5} md={2.5} lg={2.5} xl={2.5} mt={10}>
+            <Button type="submit" loading={methods.formState.isSubmitting} fullWidth>
+              {methods.formState.isSubmitting ? 'Submitting' : 'Submit'}
+            </Button>
+          </Grid.Col>
+        </Grid>
+      </form>
+    </FormProvider>
   );
-}
+};
 
-export default FormDemo;
+export default Form;
