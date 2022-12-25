@@ -73,7 +73,7 @@ export type FilterInput =
 
 export type FilterInputType = FilterInput['type'];
 
-// ------Mantine-Formik Component types------
+// ------React-Hook-Form-Controlled Mantine Component types------
 export type Option = {
   label: ReactNode;
   value: any;
