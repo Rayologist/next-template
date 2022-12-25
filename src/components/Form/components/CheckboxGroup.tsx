@@ -1,20 +1,30 @@
 import { Checkbox as MantineCheckbox } from '@mantine/core';
 import { CheckboxGroupProps } from 'types';
-import { useCustomFormik } from './Helper';
+import { useController } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 function CheckboxGroup(props: CheckboxGroupProps) {
   const { label, name, options, ...rest } = props;
-  const [formik, hasError] = useCustomFormik(name);
-  const checkboxValue = formik.values[name] as CheckboxGroupProps['value'];
+  const {
+    field,
+    fieldState: { error: fieldError },
+    formState: { defaultValues },
+  } = useController({ name });
+
+  const error = fieldError ? (
+    <ErrorMessage>{fieldError.message?.toString()}</ErrorMessage>
+  ) : undefined;
+
+  const { onChange, ...restField } = field;
 
   return (
     <MantineCheckbox.Group
+      id={name}
       label={label}
-      value={checkboxValue}
-      onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={() => formik.setFieldTouched(name, true)}
-      error={hasError}
+      onChange={(value) => onChange(value ?? defaultValues?.[name])}
+      error={error}
       {...rest}
+      {...restField}
     >
       {options.map((option, index) => (
         <MantineCheckbox

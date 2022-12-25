@@ -1,8 +1,5 @@
-import ErrorMessage from './FormikComponents/Helper/ErrorMessage';
-import { useCustomFormik } from './FormikComponents/Helper';
-import FormikController from './FormikController';
-import useSimpleForm from './SimpleForm';
+import FormController from './FormController';
+import ErrorMessage from './components/ErrorMessage';
+import useForm from './useForm';
 
-export { FormikController, ErrorMessage, useCustomFormik };
-
-export default useSimpleForm;
+export { FormController, ErrorMessage, useForm };

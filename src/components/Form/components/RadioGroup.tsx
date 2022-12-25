@@ -1,22 +1,32 @@
 import { Radio } from '@mantine/core';
 import { RadioGroupProps } from 'types';
-import { useCustomFormik } from './Helper';
+import { useController } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 function RadioGroup(props: RadioGroupProps) {
   const { label, name, options, ...rest } = props;
-  const [formik, hasError] = useCustomFormik(name);
-  const radioValue = formik.values[name] as RadioGroupProps['value'];
+  const {
+    field,
+    fieldState: { error: fieldError },
+    formState: { defaultValues },
+  } = useController({ name });
+
+  const error = fieldError ? (
+    <ErrorMessage>{fieldError.message?.toString()}</ErrorMessage>
+  ) : undefined;
+
+  const { onChange, ...restField } = field;
 
   return (
     <Radio.Group
+      id={name}
       label={label}
-      value={radioValue}
-      error={hasError}
+      error={error}
       onChange={(value) => {
-        formik.setFieldValue(name, value);
+        onChange(value ?? defaultValues?.[name]);
       }}
-      onBlur={() => formik.setFieldTouched(name, true)}
       {...rest}
+      {...restField}
     >
       {options.map((option, index) => (
         <Radio key={`${option.label}-${index}`} value={option.value} label={option.label} />

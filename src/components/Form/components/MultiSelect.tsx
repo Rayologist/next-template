@@ -1,23 +1,30 @@
 import { MultiSelect as MantineMultiSelect } from '@mantine/core';
 import { MultiSelectProps } from 'types';
-import { useCustomFormik } from './Helper';
+import { useController } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 function MultiSelect(props: MultiSelectProps) {
   const { label, name, options, ...rest } = props;
-  const [formik, hasError] = useCustomFormik(name);
-  const multiSelectValue = formik.values[name] as MultiSelectProps['value'];
+  const {
+    field,
+    fieldState: { error: fieldError },
+    formState: { defaultValues },
+  } = useController({ name });
+
+  const error = fieldError ? (
+    <ErrorMessage>{fieldError.message?.toString()}</ErrorMessage>
+  ) : undefined;
+
+  const { onChange, ...restField } = field;
 
   return (
     <MantineMultiSelect
       label={label}
-      name={name}
-      value={multiSelectValue}
       data={options}
       onChange={(value) => {
-        formik.setFieldValue(name, value);
+        onChange(value ?? defaultValues?.[value]);
       }}
-      onBlur={() => formik.setFieldTouched(name, true)}
-      error={hasError}
+      error={error}
       getCreateLabel={(query) => `+ ${query}`}
       onCreate={(query) => {
         const capitalized = query.charAt(0).toUpperCase() + query.substring(1);
@@ -26,6 +33,7 @@ function MultiSelect(props: MultiSelectProps) {
         return item;
       }}
       {...rest}
+      {...restField}
     />
   );
 }

@@ -1,25 +1,30 @@
 import { PasswordInput as MantinePasswordInput } from '@mantine/core';
 import { PasswordInputProps } from 'types';
 import { IconEye, IconEyeOff } from '@tabler/icons';
-import { useCustomFormik } from './Helper';
+import { useController } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 function PasswordInput(props: PasswordInputProps) {
   const { label, name, ...rest } = props;
-  const [formik, hasError] = useCustomFormik(name);
-  const passwordValue = formik.values[name] as PasswordInputProps['value'];
+  const {
+    field,
+    fieldState: { error: fieldError },
+  } = useController({ name });
+
+  const error = fieldError ? (
+    <ErrorMessage>{fieldError.message?.toString()}</ErrorMessage>
+  ) : undefined;
 
   return (
     <MantinePasswordInput
-      name={name}
+      id={name}
       label={label}
-      error={hasError}
-      value={passwordValue}
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
+      error={error}
       visibilityToggleIcon={({ reveal, size }) =>
         reveal ? <IconEyeOff size={size} /> : <IconEye size={size} />
       }
       {...rest}
+      {...field}
     />
   );
 }

@@ -1,17 +1,17 @@
 import React from 'react';
 import { ControllerProps } from 'types';
-import TextInput from './FormikComponents/TextInput';
-import PasswordInput from './FormikComponents/PasswordInput';
-import Select from './FormikComponents/Select';
-import CheckboxGroup from './FormikComponents/CheckboxGroup';
-import RadioGroup from './FormikComponents/RadioGroup';
-import Textarea from './FormikComponents/Textarea';
-import DatePicker from './FormikComponents/DatePicker';
-import NumberInput from './FormikComponents/NumberInput';
-import MultiSelect from './FormikComponents/MultiSelect';
-import FileInput from './FormikComponents/FileInput';
+import TextInput from './components/TextInput';
+import PasswordInput from './components/PasswordInput';
+import Select from './components/Select';
+import CheckboxGroup from './components/CheckboxGroup';
+import RadioGroup from './components/RadioGroup';
+import Textarea from './components/Textarea';
+import DatePicker from './components/DatePicker';
+import NumberInput from './components/NumberInput';
+import MultiSelect from './components/MultiSelect';
+import FileInput from './components/FileInput';
 
-function FormikController(props: ControllerProps) {
+function FormController(props: ControllerProps) {
   const { control } = props;
 
   switch (control) {
@@ -40,4 +40,4 @@ function FormikController(props: ControllerProps) {
   }
 }
 
-export default React.memo(FormikController);
+export default FormController;

@@ -1,26 +1,36 @@
 import { Select as MantineSelect } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons';
 import { SelectProps } from 'types';
-import { useCustomFormik } from './Helper';
+import { useController } from 'react-hook-form';
+import ErrorMessage from './ErrorMessage';
 
 function Select(props: SelectProps) {
   const { label, options, name, ...rest } = props;
-  const [formik, hasError] = useCustomFormik(name);
-  const fieldValue = formik.values[name] as SelectProps['value'];
+
+  const {
+    field,
+    fieldState: { error: fieldError },
+    formState: { defaultValues },
+  } = useController({ name });
+
+  const error = fieldError ? (
+    <ErrorMessage>{fieldError.message?.toString()}</ErrorMessage>
+  ) : undefined;
+
+  const { onChange, ...restField } = field;
 
   return (
     <MantineSelect
+      id={name}
       rightSection={<IconChevronDown width={15} color="#9e9e9e" />}
       styles={{ rightSection: { pointerEvents: 'none' } }}
       label={label}
-      name={name}
-      value={fieldValue}
-      onChange={(value) => formik.setFieldValue(name, value)}
-      onBlur={() => formik.setFieldTouched(name, true)}
+      onChange={(value) => onChange(value ?? defaultValues?.[name])}
       allowDeselect
-      error={hasError}
+      error={error}
       {...rest}
       data={options}
+      {...restField}
     />
   );
 }
