@@ -19,7 +19,7 @@ import {
 import { RowData } from '@tanstack/react-table';
 import { inDateRange } from '@components/Table/components/ColumnFilter/FilterFn';
 import FilterInput from '@components/Table/components/ColumnFilter/FilterInput';
-import { FieldErrors, FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 // ------@tanstack/react-table compoenent types------
 declare module '@tanstack/react-table' {
@@ -124,20 +124,3 @@ export type FormControllerProps<TFieldValues extends FieldValues = FieldValues, 
     };
   };
 };
-
-export type SubmitActions<TFieldValues extends FieldValues, TContext> = Omit<
-  UseFormReturn<TFieldValues, TContext>,
-  'register' | 'unregister' | 'watch' | 'handleSubmit' | 'control'
->;
-
-export type OnSubmit<TFieldValues extends FieldValues, TContext> = (
-  data: TFieldValues,
-  actions: SubmitActions<TFieldValues, TContext>,
-  event?: React.BaseSyntheticEvent
-) => void;
-
-export type OnSubmitError<TFieldValues extends FieldValues, TContext> = (
-  errors: FieldErrors<TFieldValues>,
-  actions: SubmitActions<TFieldValues, TContext>,
-  event?: React.BaseSyntheticEvent
-) => void;
