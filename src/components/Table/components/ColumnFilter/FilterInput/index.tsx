@@ -15,13 +15,13 @@ export default function getFilterInput({ filterInput, state, column }: GetFilter
   const { filterValue, setFilterValue } = state;
   const { type, props: filterInputProps } = filterInput;
 
-  const uniqueValue = Array.from(column.getFacetedUniqueValues().keys());
-
   switch (type) {
     case 'text':
       return <TextInputFilter {...state} {...filterInputProps} />;
     case 'select': {
-      const selectData = uniqueValue.map((value) => ({ label: value, value }));
+      const uniqueValue = column.getFacetedUniqueValues();
+      const minMaxValue = column.getFacetedMinMaxValues();
+      const selectData = filterInput.selectData(uniqueValue, minMaxValue);
       return <SelectFilter data={selectData} {...state} {...filterInputProps} />;
     }
     case 'date': {
@@ -42,7 +42,9 @@ export default function getFilterInput({ filterInput, state, column }: GetFilter
       );
     }
     case 'multi-select': {
-      const multiSelectData = uniqueValue.map((value) => ({ label: value, value }));
+      const uniqueValue = column.getFacetedUniqueValues();
+      const minMaxValue = column.getFacetedMinMaxValues();
+      const multiSelectData = filterInput.selectData(uniqueValue, minMaxValue);
       return <MultiSelectFilter {...state} data={multiSelectData} {...filterInputProps} />;
     }
     default:
