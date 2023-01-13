@@ -44,19 +44,6 @@ const ColumnFilter = (props: ColumnFilterProps) => {
     column.setFilterValue(filterValue);
   };
 
-  const Target = memo(() => (
-    <Popover.Target>
-      <ActionIcon
-        size="md"
-        onClick={() => setOpened((prev) => !prev)}
-        color={isFiltered ? 'blue' : undefined}
-        variant={isFiltered ? 'light' : undefined}
-      >
-        <IconFilter size={14} stroke={1.5} />
-      </ActionIcon>
-    </Popover.Target>
-  ));
-
   return (
     <Popover
       opened={opened}
@@ -67,7 +54,16 @@ const ColumnFilter = (props: ColumnFilterProps) => {
       withArrow
       width="18rem"
     >
-      <Target />
+      <Popover.Target>
+        <ActionIcon
+          size="md"
+          onClick={() => setOpened((prev) => !prev)}
+          color={isFiltered ? 'blue' : undefined}
+          variant={isFiltered ? 'light' : undefined}
+        >
+          <IconFilter size={14} stroke={1.5} />
+        </ActionIcon>
+      </Popover.Target>
       <Popover.Dropdown>
         <Group position="apart" mb="sm">
           <Text size="sm" color="dimmed" weight={600}>{`${column.columnDef.header} Filter`}</Text>
