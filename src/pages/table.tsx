@@ -63,6 +63,19 @@ const columns = [
     meta: {
       filterInput: {
         type: 'select',
+        selectData(facetedUniqueValue) {
+          return Array.from(facetedUniqueValue).map((val) => {
+            const [value] = val;
+            const mapping: { [key: string]: string } = { male: 'M', female: 'F' };
+            let label: string;
+            if (value in mapping) {
+              label = mapping[String(value)];
+            } else {
+              label = String(value);
+            }
+            return { label, value };
+          });
+        },
         props: {
           clearable: true,
         },
@@ -76,6 +89,12 @@ const columns = [
     meta: {
       filterInput: {
         type: 'multi-select',
+        selectData(facetedUniqueValue) {
+          return Array.from(facetedUniqueValue).map((val) => {
+            const [value] = val;
+            return { label: String(value), value };
+          });
+        },
         props: {
           clearable: true,
           searchable: true,
