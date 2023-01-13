@@ -44,16 +44,19 @@ function ColumnToggle<RowData>(props: ColumnToggleProps<RowData>) {
         transitionDuration={0}
         onChange={() => toggleAllColumnsVisible(!allChecked)}
       />
-      {columns.map((column) => (
-        <Checkbox
-          mt="xs"
-          ml={33}
-          label={(column.columnDef.header as ReactNode | undefined) ?? column.id}
-          key={column.id}
-          checked={column.getIsVisible()}
-          onChange={column.getToggleVisibilityHandler()}
-        />
-      ))}
+      {columns.map((column) => {
+        if (!column.getCanHide()) return null;
+        return (
+          <Checkbox
+            mt="xs"
+            ml={33}
+            label={(column.columnDef.header as ReactNode | undefined) ?? column.id}
+            key={column.id}
+            checked={column.getIsVisible()}
+            onChange={column.getToggleVisibilityHandler()}
+          />
+        );
+      })}
     </Popover.Dropdown>
   ));
 
