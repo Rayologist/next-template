@@ -47,6 +47,7 @@ function Table<T extends RowData>(props: TableProps<T>) {
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState('');
+  const [searchRegex, setSearchRegex] = useState<RegExp>();
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -66,6 +67,18 @@ function Table<T extends RowData>(props: TableProps<T>) {
       columnFilters,
     },
     columnResizeMode: 'onChange',
+    globalFilterFn: (row, columnId, filterValue: string) => {
+      let value: any = row.getValue(columnId);
+      if (typeof value === 'number') {
+        value = String(value);
+      }
+
+      if (searchRegex) {
+        return searchRegex.test(value);
+      }
+
+      return value?.toLowerCase().includes(filterValue.toLowerCase());
+    },
     onGlobalFilterChange: setGlobalFilter,
     onColumnVisibilityChange: setColumnVisibility,
     onSortingChange: setSorting,
@@ -204,7 +217,25 @@ function Table<T extends RowData>(props: TableProps<T>) {
       <Group sx={{ display: 'flex', alignItems: 'center' }} mb="md">
         <GlobalFilter
           value={globalFilter ?? ''}
-          onChange={(e) => setGlobalFilter(e.target.value)}
+          onChange={(e) => {
+            const { value } = e.target;
+            // setting up regex filter if js regular expression is identified
+            const regex = /\/(.*?)\/(.*)?/;
+            if (regex.test(value)) {
+              const result = value.match(regex);
+              if (result && result[1] !== '') {
+                const flags = result[2] || undefined;
+                const searchRegExp = new RegExp(result[1], flags);
+                setSearchRegex(searchRegExp);
+                setGlobalFilter(value);
+                return null;
+              }
+            }
+
+            if (searchRegex) setSearchRegex(undefined);
+            setGlobalFilter(value);
+            return null;
+          }}
           sx={{ flexGrow: 1 }}
         />
 
@@ -237,7 +268,5 @@ function Table<T extends RowData>(props: TableProps<T>) {
     </>
   );
 }
-
-Table.displayName = 'Table';
 
 export default Table;
