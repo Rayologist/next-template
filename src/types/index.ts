@@ -65,6 +65,10 @@ export type FilterInput =
   | {
       type: 'select';
       props?: Partial<SelectFilter>;
+      selectData: (
+        facetedUniqueValue: Map<any, number>,
+        facetedMinMaxValue: undefined | [number, number]
+      ) => { label: string; value: any }[];
     }
   | {
       type: 'date';
@@ -73,6 +77,10 @@ export type FilterInput =
   | {
       type: 'multi-select';
       props?: Partial<MultiSelectFilter>;
+      selectData: (
+        facetedUniqueValue: Map<any, number>,
+        facetedMinMaxValue: undefined | [number, number]
+      ) => { label: string; value: any }[];
     };
 
 export type FilterInputType = FilterInput['type'];
@@ -128,7 +136,7 @@ export type ControllerProps =
   | ({ control: 'file-input' } & FileInputProps<boolean>)
   | ({ control: 'switch-group' } & SwitchGroupProps);
 
-type Controllers<TFieldValues extends FieldValues, TContext> = {
+export type Controllers<TFieldValues extends FieldValues, TContext> = {
   [key in keyof TFieldValues]: ControllerProps & { name: key } & {
     col?: ColProps;
     after?: ReactNode | ((ctx: UseFormReturn<TFieldValues, TContext>) => ReactNode);
