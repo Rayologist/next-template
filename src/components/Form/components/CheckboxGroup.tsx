@@ -1,10 +1,10 @@
-import { Checkbox as MantineCheckbox } from '@mantine/core';
+import { Group, Checkbox as MantineCheckbox, Stack } from '@mantine/core';
 import { CheckboxGroupProps } from 'types';
 import { useController } from 'react-hook-form';
 import ErrorMessage from './ErrorMessage';
 
 function CheckboxGroup(props: CheckboxGroupProps) {
-  const { label, name, options, ...rest } = props;
+  const { label, name, options, orientation = 'horizontal', orientationProps, ...rest } = props;
   const {
     field,
     fieldState: { error: fieldError },
@@ -17,6 +17,8 @@ function CheckboxGroup(props: CheckboxGroupProps) {
 
   const { onChange, ...restField } = field;
 
+  const Orientation = orientation === 'horizontal' ? Group : Stack;
+
   return (
     <MantineCheckbox.Group
       id={name}
@@ -26,13 +28,15 @@ function CheckboxGroup(props: CheckboxGroupProps) {
       {...rest}
       {...restField}
     >
-      {options.map((option, index) => (
-        <MantineCheckbox
-          key={`${option.label}-${index}`}
-          label={option.label}
-          value={option.value}
-        />
-      ))}
+      {/* eslint-disable @typescript-eslint/no-shadow */}
+      <Orientation mt="xs" {...orientationProps}>
+        {options.map((option, index) => {
+          const { label, value, ...rest } = option;
+          return (
+            <MantineCheckbox key={`${label}-${index}`} label={label} value={value} {...rest} />
+          );
+        })}
+      </Orientation>
     </MantineCheckbox.Group>
   );
 }

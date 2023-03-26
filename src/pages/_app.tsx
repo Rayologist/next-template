@@ -1,10 +1,9 @@
-import type { AppProps } from 'next/app';
-import { GetServerSidePropsContext } from 'next';
+import NextApp, { AppProps, AppContext } from 'next/app';
 import { useState } from 'react';
 import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-import { NotificationsProvider } from '@mantine/notifications';
+import { Notifications } from '@mantine/notifications';
 import { HeaderResponsive } from 'src/Layout/common';
 
 function App(props: AppProps & { colorScheme: ColorScheme }) {
@@ -29,25 +28,27 @@ function App(props: AppProps & { colorScheme: ColorScheme }) {
 
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
         <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <NotificationsProvider>
-            <HeaderResponsive
-              links={[
-                { link: '/table', label: 'Table' },
-                { link: '/form', label: 'Form' },
-                { link: '/simple-form', label: 'Simple Form' },
-                { link: '/rte', label: 'Rich Text Editor' },
-              ]}
-            />
-            <Component {...pageProps} />
-          </NotificationsProvider>
+          <HeaderResponsive
+            links={[
+              { link: '/table', label: 'Table' },
+              { link: '/form', label: 'Form' },
+              { link: '/simple-form', label: 'Simple Form' },
+              { link: '/rte', label: 'Rich Text Editor' },
+            ]}
+          />
+          <Component {...pageProps} />
+          <Notifications />
         </MantineProvider>
       </ColorSchemeProvider>
     </>
   );
 }
 
-App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
-  colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
-});
-
+App.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await NextApp.getInitialProps(appContext);
+  return {
+    ...appProps,
+    colorScheme: getCookie('mantine-color-scheme', appContext.ctx) || 'dark',
+  };
+};
 export default App;

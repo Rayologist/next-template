@@ -1,4 +1,4 @@
-import { createStyles } from '@mantine/core';
+import { createStyles, rem } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   th: {
@@ -13,9 +13,9 @@ const useStyles = createStyles((theme) => ({
   },
 
   icon: {
-    width: 21,
-    height: 21,
-    borderRadius: 21,
+    width: rem(21),
+    height: rem(21),
+    borderRadius: rem(21),
   },
 
   header: {

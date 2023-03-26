@@ -1,24 +1,29 @@
 import { Dispatch, SetStateAction, ReactNode } from 'react';
 import {
+  CheckboxGroupProps as MantineCheckboxGroupProps,
+  CheckboxProps,
+  ColProps,
+  FileInputProps as MantineFileInputProps,
+  GroupProps,
+  InputWrapperBaseProps,
+  MultiSelectProps as MantineMultiSelectProps,
+  NumberInputProps as MantineNumberInputProps,
   PasswordInputProps as MantinePasswordInputProps,
+  PinInputProps as MantinePinInputProps,
   RadioGroupProps as MantineRadioGroupProps,
   RadioProps,
   SelectProps as MantineSelectProps,
-  TextareaProps as MantineTextareaProps,
-  TextInputProps as MantineTextInputProps,
-  CheckboxGroupProps as MantineCheckboxGroupProps,
-  CheckboxProps,
-  NumberInputProps as MantineNumberInputProps,
-  MultiSelectProps as MantineMultiSelectProps,
-  FileInputProps as MantineFileInputProps,
+  StackProps,
   SwitchGroupProps as MantineSwitchGroupProps,
   SwitchProps,
-  ColProps,
+  TextInputProps as MantineTextInputProps,
+  TextareaProps as MantineTextareaProps,
 } from '@mantine/core';
 import {
-  DatePickerProps as MantineDatePickerProps,
-  DateRangePickerProps as MantineDateRangePickerProps,
-  DateRangePickerValue,
+  DateInputProps as MantineDateInputProps,
+  DatePickerInputProps as MantineDatePickerInputProps,
+  DatePickerValue,
+  DatePickerType,
 } from '@mantine/dates';
 import { RowData } from '@tanstack/react-table';
 import { inDateRange } from '@components/Table/components/ColumnFilter/FilterFn';
@@ -50,9 +55,13 @@ export type TextInputFilterProps = InputFilterProps<string> & TextInputFilter;
 export type SelectFilter = OmitValueAndOnChange<MantineSelectProps>;
 export type SelectFilterProps = InputFilterProps<string> & SelectFilter;
 
-export type DateRangePickerFilter = OmitValueAndOnChange<MantineDateRangePickerProps>;
-export type DateRangePickerFilterProps = InputFilterProps<DateRangePickerValue> &
-  DateRangePickerFilter;
+export type DatePickerInputFilter<Type extends DatePickerType = 'default'> = OmitValueAndOnChange<
+  MantineDatePickerInputProps<Type>
+>;
+export type DatePickerFilterProps<Type extends DatePickerType = 'default'> = InputFilterProps<
+  DatePickerValue<Type>
+> &
+  DatePickerInputFilter<Type>;
 
 export type MultiSelectFilter = OmitValueAndOnChange<MantineMultiSelectProps>;
 export type MultiSelectFilterProps = InputFilterProps<string[]> & MultiSelectFilter;
@@ -72,7 +81,7 @@ export type FilterInput =
     }
   | {
       type: 'date';
-      props?: Partial<DateRangePickerFilter>;
+      props?: Partial<DatePickerInputFilter<'range'>>;
     }
   | {
       type: 'multi-select';
@@ -96,12 +105,15 @@ export interface Options<OtherProps = {}> {
 }
 
 export type Controlled<T> = { label: ReactNode; name: string } & T;
-
+export type Orientation =
+  | { orientation?: 'horizontal'; orientationProps?: GroupProps }
+  | { orientation?: 'vertical'; orientationProps?: StackProps };
 export type TextInputProps = Controlled<MantineTextInputProps>;
 export type PasswordInputProps = Controlled<MantinePasswordInputProps>;
 export type TextareaProps = Controlled<MantineTextareaProps>;
 export type NumberInputProps = Controlled<MantineNumberInputProps>;
-export type DatePickerProps = Controlled<MantineDatePickerProps>;
+export type DateInputProps = Controlled<MantineDateInputProps>;
+export type PinInputProps = Controlled<MantinePinInputProps> & InputWrapperBaseProps;
 export type FileInputProps<T extends boolean> = Controlled<MantineFileInputProps<T>>;
 export type SelectProps = Controlled<
   Omit<MantineSelectProps, 'data'> & {
@@ -114,27 +126,28 @@ export type MultiSelectProps = Controlled<
   }
 >;
 export type CheckboxGroupProps = Controlled<
-  Omit<MantineCheckboxGroupProps, 'children'> & Options<CheckboxProps>
+  Omit<MantineCheckboxGroupProps, 'children'> & Options<CheckboxProps> & Orientation
 >;
 export type RadioGroupProps = Controlled<
-  Omit<MantineRadioGroupProps, 'children'> & Options<RadioProps>
+  Omit<MantineRadioGroupProps, 'children'> & Options<RadioProps> & Orientation
 >;
 export type SwitchGroupProps = Controlled<
-  Omit<MantineSwitchGroupProps, 'children'> & Options<SwitchProps>
+  Omit<MantineSwitchGroupProps, 'children'> & Options<SwitchProps> & Orientation
 >;
 
 export type ControllerProps =
-  | ({ control: 'text-input' } & TextInputProps)
-  | ({ control: 'password-input' } & PasswordInputProps)
-  | ({ control: 'select' } & SelectProps)
   | ({ control: 'checkbox-group' } & CheckboxGroupProps)
-  | ({ control: 'radio-group' } & RadioGroupProps)
-  | ({ control: 'text-area' } & TextareaProps)
-  | ({ control: 'date-picker' } & DatePickerProps)
-  | ({ control: 'number-input' } & NumberInputProps)
-  | ({ control: 'multi-select' } & MultiSelectProps)
+  | ({ control: 'date-input' } & DateInputProps)
   | ({ control: 'file-input' } & FileInputProps<boolean>)
-  | ({ control: 'switch-group' } & SwitchGroupProps);
+  | ({ control: 'multi-select' } & MultiSelectProps)
+  | ({ control: 'number-input' } & NumberInputProps)
+  | ({ control: 'password-input' } & PasswordInputProps)
+  | ({ control: 'pin-input' } & PinInputProps)
+  | ({ control: 'radio-group' } & RadioGroupProps)
+  | ({ control: 'select' } & SelectProps)
+  | ({ control: 'switch-group' } & SwitchGroupProps)
+  | ({ control: 'text-area' } & TextareaProps)
+  | ({ control: 'text-input' } & TextInputProps);
 
 export type Controllers<TFieldValues extends FieldValues, TContext> = {
   [key in keyof TFieldValues]: ControllerProps & { name: key } & {

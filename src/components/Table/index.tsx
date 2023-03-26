@@ -124,7 +124,7 @@ function Table<T extends RowData>(props: TableProps<T>) {
                     className={classes.control}
                     sx={{ flexGrow: 1 }}
                   >
-                    <Group position="apart" spacing={0}>
+                    <Group position="apart" spacing={0} p="sm">
                       <Text weight={500} size="sm" lineClamp={lineClamp}>
                         {header.isPlaceholder
                           ? null

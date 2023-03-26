@@ -1,10 +1,10 @@
-import { Radio } from '@mantine/core';
+import { Group, Radio, Stack } from '@mantine/core';
 import { RadioGroupProps } from 'types';
 import { useController } from 'react-hook-form';
 import ErrorMessage from './ErrorMessage';
 
 function RadioGroup(props: RadioGroupProps) {
-  const { label, name, options, ...rest } = props;
+  const { label, name, options, orientation = 'horizontal', orientationProps, ...rest } = props;
   const {
     field,
     fieldState: { error: fieldError },
@@ -17,6 +17,8 @@ function RadioGroup(props: RadioGroupProps) {
 
   const { onChange, ...restField } = field;
 
+  const Orientation = orientation === 'horizontal' ? Group : Stack;
+
   return (
     <Radio.Group
       id={name}
@@ -28,9 +30,13 @@ function RadioGroup(props: RadioGroupProps) {
       {...rest}
       {...restField}
     >
-      {options.map((option, index) => (
-        <Radio key={`${option.label}-${index}`} value={option.value} label={option.label} />
-      ))}
+      {/* eslint-disable @typescript-eslint/no-shadow */}
+      <Orientation mt="xs" {...orientationProps}>
+        {options.map((option, index) => {
+          const { label, value, ...rest } = option;
+          return <Radio key={`${label}-${index}`} value={value} label={label} {...rest} />;
+        })}
+      </Orientation>
     </Radio.Group>
   );
 }

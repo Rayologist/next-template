@@ -142,12 +142,11 @@ const Form = () => {
       withAsterisk: true,
     },
     {
-      control: 'date-picker',
+      control: 'date-input',
       name: 'date',
       label: 'Date',
       placeholder: 'Pick Date',
       withAsterisk: true,
-      allowFreeInput: true,
     },
     {
       control: 'number-input',
