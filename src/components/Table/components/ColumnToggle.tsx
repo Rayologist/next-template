@@ -1,5 +1,5 @@
 import { Popover, Checkbox, ActionIcon, Text } from '@mantine/core';
-import { IconLayoutColumns } from '@tabler/icons';
+import { IconLayoutColumns } from '@tabler/icons-react';
 import { Table } from '@tanstack/react-table';
 import { ReactNode, memo } from 'react';
 
@@ -61,7 +61,12 @@ function ColumnToggle<RowData>(props: ColumnToggleProps<RowData>) {
   ));
 
   return (
-    <Popover shadow="md" width={200} position="left-start" transition="slide-left">
+    <Popover
+      shadow="md"
+      width={200}
+      position="left-start"
+      transitionProps={{ transition: 'slide-left' }}
+    >
       <Target />
       <Dropdown />
     </Popover>

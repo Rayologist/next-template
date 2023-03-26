@@ -1,11 +1,16 @@
-import { IconChevronDown, IconChevronUp, IconSelector, TablerIconProps } from '@tabler/icons';
+import {
+  IconChevronDown,
+  IconChevronUp,
+  IconSelector,
+  TablerIconsProps,
+} from '@tabler/icons-react';
 import { SortDirection } from '@tanstack/react-table';
 
 function SortingIcon({
   sorted,
   canSort,
   ...args
-}: { sorted: false | SortDirection; canSort: boolean } & TablerIconProps) {
+}: { sorted: false | SortDirection; canSort: boolean } & TablerIconsProps) {
   const icon = {
     asc: IconChevronUp,
     desc: IconChevronDown,

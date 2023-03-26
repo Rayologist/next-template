@@ -1,6 +1,11 @@
 import { Tooltip, useMantineTheme } from '@mantine/core';
 import { RichTextEditor, useRichTextEditorContext } from '@mantine/tiptap';
-import { IconArrowBackUp, IconArrowForwardUp, IconDeviceFloppy, IconTrash } from '@tabler/icons';
+import {
+  IconArrowBackUp,
+  IconArrowForwardUp,
+  IconDeviceFloppy,
+  IconTrash,
+} from '@tabler/icons-react';
 
 export function Undo() {
   const { editor } = useRichTextEditorContext();
