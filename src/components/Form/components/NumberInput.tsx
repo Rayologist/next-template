@@ -23,7 +23,7 @@ function NumberInput(props: NumberInputProps) {
       label={label}
       onChange={(value) => {
         if (value === '') {
-          onChange(defaultValues?.[name] ?? null);
+          onChange(defaultValues?.[name] ?? '');
         } else {
           onChange(value);
         }
