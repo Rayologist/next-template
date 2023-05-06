@@ -111,7 +111,7 @@ const columns = [
         type: 'date',
         props: {
           clearable: true,
-          initialLevel: 'year',
+          defaultLevel: 'year',
         },
       },
     },

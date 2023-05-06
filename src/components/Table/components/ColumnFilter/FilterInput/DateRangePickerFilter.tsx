@@ -4,7 +4,7 @@ import { DatePickerFilterProps } from 'types';
 const DateRangePickerFilter = (props: DatePickerFilterProps<'range'>) => {
   const { filterValue, setFilterValue, ...rest } = props;
   return (
-    <DatePickerInput
+    <DatePickerInput<'range'>
       type="range"
       value={filterValue ?? [null, null]}
       onChange={(value) => setFilterValue(value)}
