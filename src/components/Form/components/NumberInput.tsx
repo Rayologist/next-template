@@ -1,6 +1,6 @@
 import { NumberInput as MantineNumberInput } from '@mantine/core';
-import { NumberInputProps } from 'types';
 import { useController } from 'react-hook-form';
+import { NumberInputProps } from '../types';
 import ErrorMessage from './ErrorMessage';
 
 function NumberInput(props: NumberInputProps) {
@@ -23,7 +23,10 @@ function NumberInput(props: NumberInputProps) {
       label={label}
       onChange={(value) => {
         if (value === '') {
-          onChange(defaultValues?.[name] ?? '');
+          /**
+           * @see https://mantine.dev/core/number-input/#input-value-type
+           */
+          onChange(defaultValues?.[name] || '');
         } else {
           onChange(value);
         }

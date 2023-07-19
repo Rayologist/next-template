@@ -1,26 +1,10 @@
-import { Dispatch, SetStateAction, ReactNode } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import {
-  CheckboxGroupProps as MantineCheckboxGroupProps,
-  CheckboxProps,
-  ColProps,
-  FileInputProps as MantineFileInputProps,
-  GroupProps,
-  InputWrapperBaseProps,
   MultiSelectProps as MantineMultiSelectProps,
-  NumberInputProps as MantineNumberInputProps,
-  PasswordInputProps as MantinePasswordInputProps,
-  PinInputProps as MantinePinInputProps,
-  RadioGroupProps as MantineRadioGroupProps,
-  RadioProps,
   SelectProps as MantineSelectProps,
-  StackProps,
-  SwitchGroupProps as MantineSwitchGroupProps,
-  SwitchProps,
   TextInputProps as MantineTextInputProps,
-  TextareaProps as MantineTextareaProps,
 } from '@mantine/core';
 import {
-  DateInputProps as MantineDateInputProps,
   DatePickerInputProps as MantineDatePickerInputProps,
   DatePickerValue,
   DatePickerType,
@@ -28,7 +12,6 @@ import {
 import { RowData } from '@tanstack/react-table';
 import { inDateRange } from '@components/Table/components/ColumnFilter/FilterFn';
 import FilterInput from '@components/Table/components/ColumnFilter/FilterInput';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
 
 // ------@tanstack/react-table compoenent types------
 declare module '@tanstack/react-table' {
@@ -93,71 +76,3 @@ export type FilterInput =
     };
 
 export type FilterInputType = FilterInput['type'];
-
-// ------React-Hook-Form-Controlled Mantine Component types------
-export type Option<OtherProps = {}> = {
-  label: ReactNode;
-  value: any;
-} & OtherProps;
-
-export interface Options<OtherProps = {}> {
-  options: Option<OtherProps>[];
-}
-
-export type Controlled<T> = { label: ReactNode; name: string } & T;
-export type Orientation =
-  | { orientation?: 'horizontal'; orientationProps?: GroupProps }
-  | { orientation?: 'vertical'; orientationProps?: StackProps };
-export type TextInputProps = Controlled<MantineTextInputProps>;
-export type PasswordInputProps = Controlled<MantinePasswordInputProps>;
-export type TextareaProps = Controlled<MantineTextareaProps>;
-export type NumberInputProps = Controlled<MantineNumberInputProps>;
-export type DateInputProps = Controlled<MantineDateInputProps>;
-export type PinInputProps = Controlled<MantinePinInputProps> & InputWrapperBaseProps;
-export type FileInputProps<T extends boolean> = Controlled<MantineFileInputProps<T>>;
-export type SelectProps = Controlled<
-  Omit<MantineSelectProps, 'data'> & {
-    options: MantineSelectProps['data'];
-  }
->;
-export type MultiSelectProps = Controlled<
-  Omit<MantineMultiSelectProps, 'data'> & {
-    options: MantineMultiSelectProps['data'];
-  }
->;
-export type CheckboxGroupProps = Controlled<
-  Omit<MantineCheckboxGroupProps, 'children'> & Options<CheckboxProps> & Orientation
->;
-export type RadioGroupProps = Controlled<
-  Omit<MantineRadioGroupProps, 'children'> & Options<RadioProps> & Orientation
->;
-export type SwitchGroupProps = Controlled<
-  Omit<MantineSwitchGroupProps, 'children'> & Options<SwitchProps> & Orientation
->;
-
-export type ControllerProps =
-  | ({ control: 'checkbox-group' } & CheckboxGroupProps)
-  | ({ control: 'date-input' } & DateInputProps)
-  | ({ control: 'file-input' } & FileInputProps<boolean>)
-  | ({ control: 'multi-select' } & MultiSelectProps)
-  | ({ control: 'number-input' } & NumberInputProps)
-  | ({ control: 'password-input' } & PasswordInputProps)
-  | ({ control: 'pin-input' } & PinInputProps)
-  | ({ control: 'radio-group' } & RadioGroupProps)
-  | ({ control: 'select' } & SelectProps)
-  | ({ control: 'switch-group' } & SwitchGroupProps)
-  | ({ control: 'text-area' } & TextareaProps)
-  | ({ control: 'text-input' } & TextInputProps);
-
-export type Controllers<TFieldValues extends FieldValues, TContext> = {
-  [key in keyof TFieldValues]: ControllerProps & { name: key } & {
-    col?: ColProps;
-    after?: ReactNode | ((ctx: UseFormReturn<TFieldValues, TContext>) => ReactNode);
-  };
-};
-
-export type FormControllerProps<TFieldValues extends FieldValues = FieldValues, TContext = any> = {
-  controllers:
-    | Controllers<TFieldValues, TContext>
-    | ((context: UseFormReturn<TFieldValues, TContext>) => Controllers<TFieldValues, TContext>);
-};

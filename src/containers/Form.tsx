@@ -2,8 +2,7 @@ import { useForm as useHookForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Button, Grid, ColProps } from '@mantine/core';
-import { ControllerProps } from 'types';
-import { FormController } from '@components/Form';
+import { FormController, ControllerProps } from '@components/Form';
 
 const Form = () => {
   const schema = z
